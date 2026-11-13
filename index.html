@@ -71,7 +71,15 @@ section[id] { scroll-margin-top: 80px; }
 .site-head { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: #FFFFFF; box-shadow: 0 1px 0 var(--line), 0 4px 16px rgba(11, 74, 85, 0.05); }
 .site-head .wrap { display: flex; align-items: center; gap: 20px; min-height: 68px; }
 .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--ink); flex-shrink: 0; }
-.brand svg { width: 40px; height: 40px; flex-shrink: 0; }
+.brand svg { width: 40px; height: 40px; flex-shrink: 0; display: block; }
+.logo-sem { display: flex; align-items: center; }
+.logo-sem img { height: var(--h-sem, 44px); width: auto; max-width: 220px; display: block; }
+.uni-slot { display: flex; align-items: center; flex-shrink: 0; }
+.uni-slot img { height: var(--h-uni, 40px); width: auto; max-width: 200px; display: block; }
+.uni-left { padding-left: 18px; border-left: 1px solid var(--line); }
+.uni-right { padding-left: 16px; border-left: 1px solid var(--line); }
+.foot-logos { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; background: #FFFFFF; border-radius: 14px; padding: 12px 18px; margin-bottom: 16px; width: fit-content; max-width: 100%; }
+.foot-logos img { height: 40px; width: auto; max-width: 180px; display: block; }
 .brand-name { display: block; font: 800 1.3rem/1 var(--font-head); letter-spacing: 0.01em; color: var(--deep); }
 .brand-sub { display: block; font-size: 0.78rem; color: var(--muted); margin-top: 3px; }
 .nav { flex: 1; min-width: 0; display: flex; justify-content: flex-end; align-items: center; gap: 4px; overflow-x: auto; scrollbar-width: none; }
@@ -134,6 +142,16 @@ section[id] { scroll-margin-top: 80px; }
 .lines h3 { font-weight: 600; font-size: 1.15rem; line-height: 1.25; margin-bottom: 6px; }
 .lines p { margin: 0; color: #36565C; font-size: 0.97rem; }
 
+/* Galería de Nosotros */
+.gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 20px; margin-top: 40px; }
+.gallery:empty { display: none; }
+.gallery figure { margin: 0; background: #FFFFFF; border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
+.gallery .ph { aspect-ratio: 4 / 3; max-width: 100%; background: linear-gradient(160deg, var(--aqua), var(--mint)); display: grid; place-items: center; color: var(--muted); font-size: 0.9rem; text-align: center; padding: 16px; }
+.gallery .ph svg { width: 48px; height: 48px; display: block; margin: 0 auto 8px; }
+.gallery img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.gallery .ph.has-img { padding: 0; }
+.gallery figcaption { padding: 12px 16px; font-size: 0.93rem; color: #36565C; }
+
 /* Perfil altitudinal */
 .explore { background: #FFFFFF; border-radius: 24px; box-shadow: var(--shadow); padding: clamp(20px, 4vw, 40px); display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 48px); align-items: start; }
 .explore > * { min-width: 0; }
@@ -159,11 +177,13 @@ section[id] { scroll-margin-top: 80px; }
 /* Investigadores */
 .people { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; margin-top: 28px; }
 .person { background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); padding: 24px; display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
-.avatar { width: 64px; height: 64px; border-radius: 50%; display: grid; place-items: center; font: 700 1.3rem var(--font-head); color: var(--deep); background: var(--c); margin-bottom: 12px; }
+.avatar { width: 80px; height: 80px; overflow: hidden; border-radius: 50%; display: grid; place-items: center; font: 700 1.3rem var(--font-head); color: var(--deep); background: var(--c); margin-bottom: 12px; }
 .person h3 { font-weight: 600; font-size: 1.12rem; line-height: 1.3; }
 .person .tag { margin: 6px 0 10px; }
 .person .focus { font-size: 0.95rem; margin: 0 0 10px; color: #36565C; }
 .person .since { font-size: 0.85rem; color: var(--muted); margin: auto 0 0; }
+
+.avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
 /* Blog */
 .posts { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 420px), 1fr)); gap: 24px; align-items: start; }
@@ -224,11 +244,15 @@ section[id] { scroll-margin-top: 80px; }
   .foot-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
   .foot-grid > :first-child { grid-column: 1 / -1; }
   .brand-sub { display: none; }
+  .logo-sem img { height: calc(var(--h-sem, 44px) * 0.8); }
+  .uni-slot img { height: calc(var(--h-uni, 40px) * 0.75); }
 }
 @media (max-width: 560px) {
   .lines { grid-template-columns: minmax(0, 1fr); }
   .foot-grid { grid-template-columns: minmax(0, 1fr); }
   .nav a:not(.nav-cta) { display: none; }
+  .uni-right { display: none !important; }
+  .uni-left { padding-left: 12px; }
 }
 </style>
 </head>
@@ -244,17 +268,18 @@ section[id] { scroll-margin-top: 80px; }
 <header class="site-head">
   <div class="wrap">
     <a class="brand" href="#inicio" aria-label="DICEMAS, ir al inicio">
-      <svg viewBox="0 0 40 40" aria-hidden="true">
+      <span class="logo-sem" id="logo-sem"><svg viewBox="0 0 40 40" aria-hidden="true">
         <circle cx="20" cy="20" r="20" fill="#0F7A78"/>
         <path d="M5 27 L13 17 L18 22 L24 12 L35 27 Z" fill="#AED7B2"/>
         <path d="M5 27 Q12.5 23 20 27 T35 27 L35 31 Q27.5 35 20 31 T5 31 Z" fill="#E0F1F7"/>
         <circle cx="29" cy="11" r="3.2" fill="#F8E3A8"/>
-      </svg>
-      <span>
+      </svg></span>
+      <span class="brand-text" id="brand-text">
         <span class="brand-name">DICEMAS</span>
         <span class="brand-sub">Dinámica Clima-Ecosistemas</span>
       </span>
     </a>
+    <span class="uni-slot uni-left" id="uni-left" hidden></span>
     <nav class="nav" aria-label="Secciones">
       <a href="#nosotros">Nosotros</a>
       <a href="#investigadores">Investigadores</a>
@@ -262,6 +287,7 @@ section[id] { scroll-margin-top: 80px; }
       <a href="#publicaciones">Publicaciones</a>
       <a class="nav-cta" href="#unete">Únete</a>
     </nav>
+    <span class="uni-slot uni-right" id="uni-right" hidden></span>
   </div>
 </header>
 
@@ -307,6 +333,7 @@ section[id] { scroll-margin-top: 80px; }
         </div>
         <ul class="lines" id="lines" aria-label="Líneas de investigación"></ul>
       </div>
+      <div class="gallery" id="gallery"></div>
     </div>
   </section>
 
@@ -400,6 +427,7 @@ section[id] { scroll-margin-top: 80px; }
   <div class="wrap">
     <div class="foot-grid">
       <div>
+        <div class="foot-logos" id="foot-logos" hidden></div>
         <p class="brand-name">DICEMAS</p>
         <p>Semillero de investigación en Dinámica Clima-Ecosistemas, vinculado al pregrado en Ciencias del Sistema Tierra.</p>
       </div>
@@ -435,18 +463,42 @@ section[id] { scroll-margin-top: 80px; }
      Para borrar algo, elimina su bloque completo { ... }.
      El correo de contacto está más arriba, en el HTML:
      busca "correo-del-semillero" (aparece dos veces).
+     FOTOS: sube las imágenes a una carpeta llamada "fotos" en
+     GitHub y escribe aquí su ruta, por ejemplo "fotos/ana.jpg".
+     - Investigadores: campo foto: "" de cada persona. Si está
+       vacío o la foto no carga, se muestran las iniciales.
+     - Nosotros: lista FOTOS_GRUPO, más abajo.
+     Usa nombres sin espacios, tildes ni ñ, y respeta mayúsculas.
      Los datos de la portada (Tipo, Programa, Reuniones) también
      están en el HTML: busca "Datos del semillero".
      ========================================================== */
+  /* ====== LOGOS ======
+     Sube los archivos a la carpeta "fotos" (PNG con fondo
+     transparente o SVG se ven mejor) y escribe aquí su ruta. */
+  var LOGOS = {
+    semillero: "",              /* ej. "fotos/logo-dicemas.png". Vacío = ícono de montaña */
+    mostrarNombre: true,        /* false oculta el texto "DICEMAS" junto al logo
+                                   (útil si el logo ya trae el nombre) */
+    alturaSemillero: 44,        /* alto del logo del semillero, en píxeles */
+
+    universidad: "",            /* ej. "fotos/logo-universidad.png". Vacío = no aparece */
+    posicionUniversidad: "derecha",
+                                /* "izquierda" = junto al logo del semillero
+                                   "derecha"   = al final de la cabecera, después del menú
+                                   "solo-pie"  = solo en el pie de página */
+    alturaUniversidad: 40,      /* alto del logo de la universidad, en píxeles */
+    enlaceUniversidad: ""       /* opcional: página web al hacer clic en el logo */
+  };
+
   var PEOPLE = [
-    { n: "Ana María Torres Beltrán", r: "Docente líder", g: "Docentes", f: "Variabilidad climática y recursos hídricos en cuencas andinas", s: 2019 },
-    { n: "Camilo Restrepo Naranjo", r: "Docente investigador", g: "Docentes", f: "Percepción remota y fenología de la vegetación", s: 2020 },
-    { n: "Daniela Pérez Rojas", r: "Estudiante de maestría", g: "Estudiantes", f: "Respuesta del páramo a la precipitación interanual", s: 2023 },
-    { n: "Juan Sebastián Moreno", r: "Estudiante de maestría", g: "Estudiantes", f: "Series de tiempo de NDVI y ENSO", s: 2023 },
-    { n: "Valentina Castaño Ruiz", r: "Estudiante de pregrado", g: "Estudiantes", f: "Limpieza y análisis de datos de estaciones meteorológicas", s: 2025 },
-    { n: "Santiago Herrera Díaz", r: "Estudiante de pregrado", g: "Estudiantes", f: "Cobertura de nubes en imágenes Sentinel-2 de alta montaña", s: 2025 },
-    { n: "Laura Camila Ortiz", r: "Egresada", g: "Egresados", f: "Distribución de especies de bosque andino", s: 2021 },
-    { n: "Andrés Felipe Gil", r: "Egresado", g: "Egresados", f: "Flujos de carbono en bosques secundarios", s: 2021 }
+    { n: "Ana María Torres Beltrán", r: "Docente líder", g: "Docentes", f: "Variabilidad climática y recursos hídricos en cuencas andinas", s: 2019, foto: "fotos/ana-maria-torres.jpg" },
+    { n: "Camilo Restrepo Naranjo", r: "Docente investigador", g: "Docentes", f: "Percepción remota y fenología de la vegetación", s: 2020, foto: "" },
+    { n: "Daniela Pérez Rojas", r: "Estudiante de maestría", g: "Estudiantes", f: "Respuesta del páramo a la precipitación interanual", s: 2023, foto: "" },
+    { n: "Juan Sebastián Moreno", r: "Estudiante de maestría", g: "Estudiantes", f: "Series de tiempo de NDVI y ENSO", s: 2023, foto: "" },
+    { n: "Valentina Castaño Ruiz", r: "Estudiante de pregrado", g: "Estudiantes", f: "Limpieza y análisis de datos de estaciones meteorológicas", s: 2025, foto: "" },
+    { n: "Santiago Herrera Díaz", r: "Estudiante de pregrado", g: "Estudiantes", f: "Cobertura de nubes en imágenes Sentinel-2 de alta montaña", s: 2025, foto: "" },
+    { n: "Laura Camila Ortiz", r: "Egresada", g: "Egresados", f: "Distribución de especies de bosque andino", s: 2021, foto: "" },
+    { n: "Andrés Felipe Gil", r: "Egresado", g: "Egresados", f: "Flujos de carbono en bosques secundarios", s: 2021, foto: "" }
   ];
 
   var LINES = [
@@ -454,6 +506,14 @@ section[id] { scroll-margin-top: 80px; }
     { t: "Fenología y productividad", d: "Seguimiento de la actividad de la vegetación con índices como NDVI y EVI a partir de imágenes de satélite." },
     { t: "Páramos y bosques andinos", d: "Respuesta de los ecosistemas de alta montaña al calentamiento y a los cambios en la humedad." },
     { t: "Modelación y datos abiertos", d: "Series de tiempo, aprendizaje automático y herramientas abiertas para integrar clima y ecosistemas." }
+  ];
+
+  /* Fotos de la sección Nosotros. Agrega o quita bloques.
+     Deja la lista vacía así:  var FOTOS_GRUPO = [];  para ocultarla. */
+  var FOTOS_GRUPO = [
+    { src: "fotos/grupo-1.jpg", pie: "Salida de campo al páramo" },
+    { src: "fotos/grupo-2.jpg", pie: "Reunión semanal del semillero" },
+    { src: "fotos/grupo-3.jpg", pie: "Presentación en congreso" }
   ];
 
   var POSTS = [
@@ -543,6 +603,28 @@ section[id] { scroll-margin-top: 80px; }
       navigator.clipboard.writeText(text).then(function () { done(true); }, fallback);
     } catch (e) { fallback(); }
   }
+
+  /* ====== Logos ====== */
+  (function () {
+    var root = document.documentElement.style;
+    root.setProperty("--h-sem", (parseInt(LOGOS.alturaSemillero, 10) || 44) + "px");
+    root.setProperty("--h-uni", (parseInt(LOGOS.alturaUniversidad, 10) || 40) + "px");
+    var foot = $("foot-logos"), footHtml = "";
+    if (LOGOS.semillero) {
+      $("logo-sem").innerHTML = '<img src="' + esc(LOGOS.semillero) + '" alt="Logo de DICEMAS">';
+      footHtml += '<img src="' + esc(LOGOS.semillero) + '" alt="Logo de DICEMAS">';
+    }
+    if (LOGOS.mostrarNombre === false) $("brand-text").hidden = true;
+    if (LOGOS.universidad) {
+      var img = '<img src="' + esc(LOGOS.universidad) + '" alt="Logo de la universidad">';
+      var uni = LOGOS.enlaceUniversidad ? '<a href="' + esc(LOGOS.enlaceUniversidad) + '" target="_blank" rel="noopener">' + img + "</a>" : img;
+      var pos = LOGOS.posicionUniversidad;
+      if (pos === "izquierda") { $("uni-left").innerHTML = uni; $("uni-left").hidden = false; }
+      else if (pos !== "solo-pie") { $("uni-right").innerHTML = uni; $("uni-right").hidden = false; }
+      footHtml += uni;
+    }
+    if (footHtml) { foot.innerHTML = footHtml; foot.hidden = false; }
+  })();
 
   /* ====== Datos de la portada ====== */
   $("f-people").textContent = PEOPLE.length + " personas";
@@ -658,6 +740,22 @@ section[id] { scroll-margin-top: 80px; }
     return '<li style="--c:' + LINE_COLORS[i % LINE_COLORS.length] + '">' + ICONS[i % ICONS.length] + "<h3>" + esc(l.t) + "</h3><p>" + esc(l.d) + "</p></li>";
   }).join("");
 
+  /* ====== Fotos ====== */
+  var MOUNT = '<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M4 38l13-18 8 10 6-8 13 16Z" fill="#AED7B2"/><circle cx="35" cy="13" r="5" fill="#F6E3A8"/></svg>';
+  /* Si una imagen no carga, quita la <img> y deja el respaldo visible */
+  document.addEventListener("error", function (e) {
+    var img = e.target;
+    if (!img || img.tagName !== "IMG" || !img.hasAttribute("data-fb")) return;
+    var box = img.parentElement;
+    box.classList.remove("has-img");
+    box.innerHTML = img.getAttribute("data-fb");
+  }, true);
+  $("gallery").innerHTML = FOTOS_GRUPO.map(function (f) {
+    var fb = MOUNT + "Foto pendiente: " + esc(f.src);
+    return '<figure><div class="ph has-img"><img src="' + esc(f.src) + '" alt="' + esc(f.pie) + '" loading="lazy" data-fb="' + esc(fb) + '"></div>' +
+      (f.pie ? "<figcaption>" + esc(f.pie) + "</figcaption>" : "") + "</figure>";
+  }).join("");
+
   /* ====== Investigadores ====== */
   var groups = ["Todos"];
   PEOPLE.forEach(function (p) { if (groups.indexOf(p.g) < 0) groups.push(p.g); });
@@ -671,7 +769,8 @@ section[id] { scroll-margin-top: 80px; }
       if (pg !== "Todos" && p.g !== pg) return "";
       var w = p.n.split(" ");
       var ini = (w[0][0] + (w[1] ? w[1][0] : "")).toUpperCase();
-      return '<article class="person"><div class="avatar" style="--c:' + PASTELS[i % PASTELS.length] + '" aria-hidden="true">' + esc(ini) + "</div>" +
+      var face = p.foto ? '<img src="' + esc(p.foto) + '" alt="" loading="lazy" data-fb="' + esc(ini) + '">' : esc(ini);
+      return '<article class="person"><div class="avatar" style="--c:' + PASTELS[i % PASTELS.length] + '" aria-hidden="true">' + face + "</div>" +
         "<h3>" + esc(p.n) + '</h3><span class="tag">' + esc(p.r) + '</span><p class="focus">' + esc(p.f) + '</p><p class="since">En el grupo desde ' + p.s + "</p></article>";
     }).join("");
   }
