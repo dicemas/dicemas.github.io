@@ -8,253 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Figtree:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap">
-<style>
-/* Estilo institucional claro: bandas de color pastel que alternan por sección,
-   tarjetas blancas redondeadas y un azul petróleo profundo para cabecera y pie. */
-:root {
-  color-scheme: light;
-  --ink: #12343B;        /* texto principal */
-  --muted: #557178;      /* texto secundario */
-  --deep: #0B4A55;       /* barra superior y pie de página */
-  --primary: #0F7A78;    /* botones y enlaces */
-  --primary-dark: #0A5F5E;
-  --bright: #2BA59A;
-  --bg: #FFFFFF;
-  --mint: #E4F5EF;       /* pastel verde */
-  --aqua: #E0F1F7;       /* pastel azul */
-  --seafoam: #D3EEE6;
-  --sky: #D6E9F5;
-  --sand: #F8F2E4;
-  --lilac: #E9EAF7;
-  --line: #D4E5E3;
-  --card: #FFFFFF;
-  --shadow: 0 1px 2px rgba(11, 74, 85, 0.06), 0 6px 20px rgba(11, 74, 85, 0.07);
-  --radius: 16px;
-  --font-head: "Outfit", "Trebuchet MS", "Segoe UI", sans-serif;
-  --font-body: "Figtree", "Segoe UI", Helvetica, Arial, sans-serif;
-  /* pisos de vegetación del perfil */
-  --z1: #4F9F86; --z2: #7DBE9C; --z3: #AED7B2; --z4: #E4DDA6; --z5: #D3DEE0;
-}
-*, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  * { transition: none !important; animation: none !important; }
-}
-body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--ink);
-  font: 400 17px/1.65 var(--font-body);
-}
-img { max-width: 100%; }
-[hidden] { display: none !important; }
-a { color: var(--primary); }
-:focus-visible { outline: 3px solid var(--bright); outline-offset: 3px; border-radius: 4px; }
-h1, h2, h3 { margin: 0; font-family: var(--font-head); text-wrap: balance; color: var(--ink); }
-section[id] { scroll-margin-top: 80px; }
-.wrap {
-  max-width: 1160px;
-  margin-inline: auto;
-  padding-left: max(20px, env(safe-area-inset-left, 0px));
-  padding-right: max(20px, env(safe-area-inset-right, 0px));
-}
-.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-
-/* Barra superior */
-.topbar { background: var(--deep); color: #CFE7E8; font-size: 0.85rem; }
-.topbar .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 16px; padding-block: 7px; }
-.topbar p { margin: 0; }
-.draft-note { color: #F5E6B8; }
-
-/* Cabecera */
-.site-head { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: #FFFFFF; box-shadow: 0 1px 0 var(--line), 0 4px 16px rgba(11, 74, 85, 0.05); }
-.site-head .wrap { display: flex; align-items: center; gap: 20px; min-height: 68px; }
-.brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--ink); flex-shrink: 0; }
-.brand svg { width: 40px; height: 40px; flex-shrink: 0; display: block; }
-.logo-sem { display: flex; align-items: center; }
-.logo-sem img { height: var(--h-sem, 44px); width: auto; max-width: 220px; display: block; }
-.uni-slot { display: flex; align-items: center; flex-shrink: 0; }
-.uni-slot img { height: var(--h-uni, 40px); width: auto; max-width: 200px; display: block; }
-.uni-left { padding-left: 18px; border-left: 1px solid var(--line); }
-.uni-right { padding-left: 16px; border-left: 1px solid var(--line); }
-.foot-logos { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; background: #FFFFFF; border-radius: 14px; padding: 12px 18px; margin-bottom: 16px; width: fit-content; max-width: 100%; }
-.foot-logos img { height: 40px; width: auto; max-width: 180px; display: block; }
-.brand-name { display: block; font: 800 1.3rem/1 var(--font-head); letter-spacing: 0.01em; color: var(--deep); }
-.brand-sub { display: block; font-size: 0.78rem; color: var(--muted); margin-top: 3px; }
-.nav { flex: 1; min-width: 0; display: flex; justify-content: flex-end; align-items: center; gap: 4px; overflow-x: auto; scrollbar-width: none; }
-.nav::-webkit-scrollbar { display: none; }
-.nav a { padding: 8px 12px; color: var(--ink); text-decoration: none; font-weight: 500; font-size: 0.97rem; white-space: nowrap; border-radius: 999px; }
-.nav a:hover { background: var(--mint); color: var(--primary-dark); }
-.nav a.nav-cta { background: var(--primary); color: #FFFFFF; padding-inline: 18px; margin-left: 6px; }
-.nav a.nav-cta:hover { background: var(--primary-dark); color: #FFFFFF; }
-
-/* Botones y píldoras */
-.btn { display: inline-flex; align-items: center; gap: 8px; padding: 13px 24px; border-radius: 999px; font: 600 1rem/1.2 var(--font-body); text-decoration: none; border: 2px solid var(--primary); cursor: pointer; transition: background 0.15s, color 0.15s; }
-.btn-primary { background: var(--primary); color: #FFFFFF; }
-.btn-primary:hover { background: var(--primary-dark); border-color: var(--primary-dark); }
-.btn-ghost { background: #FFFFFF; color: var(--primary); }
-.btn-ghost:hover { background: var(--mint); }
-.pills { display: flex; flex-wrap: wrap; gap: 8px; }
-.pill { font: 600 0.88rem/1 var(--font-body); padding: 10px 16px; border: 1.5px solid var(--line); background: #FFFFFF; color: var(--ink); border-radius: 999px; cursor: pointer; }
-.pill:hover { border-color: var(--bright); }
-.pill[aria-pressed="true"] { background: var(--primary); border-color: var(--primary); color: #FFFFFF; }
-.tag { display: inline-block; font: 600 0.78rem/1 var(--font-body); padding: 6px 10px; border-radius: 999px; background: var(--mint); color: var(--primary-dark); }
-.linkbtn { background: none; border: 0; padding: 6px 0; color: var(--primary); font: 600 0.95rem var(--font-body); cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
-.linkbtn:hover { text-decoration: underline; text-underline-offset: 3px; }
-
-/* Portada */
-.hero { position: relative; background: linear-gradient(160deg, var(--aqua) 0%, var(--mint) 70%, #F1FAF6 100%); overflow: hidden; }
-.hero .wrap { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 64px); align-items: center; padding-block: clamp(44px, 7vw, 88px) clamp(80px, 9vw, 120px); }
-.hero .wrap > * { min-width: 0; }
-.badge { display: inline-flex; align-items: center; gap: 8px; background: #FFFFFF; color: var(--primary-dark); font-weight: 600; font-size: 0.88rem; padding: 7px 14px; border-radius: 999px; box-shadow: var(--shadow); }
-.badge::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--bright); }
-.hero h1 { font-weight: 800; font-size: clamp(2.5rem, 6vw, 4.2rem); line-height: 1.04; letter-spacing: -0.015em; margin: 20px 0 0; color: var(--deep); }
-.hero h1 span { color: var(--primary); }
-.lead { font-size: clamp(1.08rem, 1.8vw, 1.25rem); color: #2B4F56; max-width: 52ch; margin: 18px 0 28px; }
-.actions { display: flex; flex-wrap: wrap; gap: 12px; }
-.facts { background: #FFFFFF; border-radius: 20px; box-shadow: var(--shadow); padding: 8px 24px; margin: 0; }
-.facts div { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--line); }
-.facts div:last-child { border-bottom: 0; }
-.facts dt { color: var(--muted); font-size: 0.92rem; }
-.facts dd { margin: 0; font-weight: 600; font-variant-numeric: tabular-nums; }
-.wave { position: absolute; left: 0; right: 0; bottom: -1px; width: 100%; height: clamp(40px, 6vw, 80px); display: block; }
-
-/* Secciones */
-.section { padding-block: clamp(56px, 8vw, 96px); }
-.band-mint { background: var(--mint); }
-.band-aqua { background: var(--aqua); }
-.sec-head { display: grid; gap: 10px; margin-bottom: 36px; max-width: 720px; }
-.kicker { color: var(--primary); font-weight: 700; font-size: 0.95rem; margin: 0; }
-.sec-head h2 { font-weight: 700; font-size: clamp(1.9rem, 3.8vw, 2.6rem); line-height: 1.12; }
-.sec-head p.intro { margin: 0; color: var(--muted); font-size: 1.08rem; }
-
-/* Nosotros */
-.about { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(28px, 5vw, 64px); align-items: start; }
-.about > * { min-width: 0; }
-.about-text p { max-width: 60ch; margin: 0 0 1em; }
-.tools-title { font: 600 1rem var(--font-head); margin: 28px 0 12px; }
-.tools { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; }
-.tools li { background: var(--aqua); color: #1E5562; border-radius: 999px; padding: 6px 14px; font-size: 0.9rem; font-weight: 500; }
-.lines { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
-.lines li { border-radius: var(--radius); padding: 22px; background: var(--c, var(--mint)); }
-.lines svg { width: 36px; height: 36px; margin-bottom: 10px; display: block; }
-.lines h3 { font-weight: 600; font-size: 1.15rem; line-height: 1.25; margin-bottom: 6px; }
-.lines p { margin: 0; color: #36565C; font-size: 0.97rem; }
-
-/* Galería de Nosotros */
-.gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 20px; margin-top: 40px; }
-.gallery:empty { display: none; }
-.gallery figure { margin: 0; background: #FFFFFF; border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
-.gallery .ph { aspect-ratio: 4 / 3; max-width: 100%; background: linear-gradient(160deg, var(--aqua), var(--mint)); display: grid; place-items: center; color: var(--muted); font-size: 0.9rem; text-align: center; padding: 16px; }
-.gallery .ph svg { width: 48px; height: 48px; display: block; margin: 0 auto 8px; }
-.gallery img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.gallery .ph.has-img { padding: 0; }
-.gallery figcaption { padding: 12px 16px; font-size: 0.93rem; color: #36565C; }
-
-/* Perfil altitudinal */
-.explore { background: #FFFFFF; border-radius: 24px; box-shadow: var(--shadow); padding: clamp(20px, 4vw, 40px); display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 48px); align-items: start; }
-.explore > * { min-width: 0; }
-.tr-svg { width: 100%; height: auto; display: block; max-width: 100%; }
-.tr-svg .grid { stroke: #E3EEEC; stroke-width: 1; }
-.tr-svg .tick { font: 500 14px var(--font-body); fill: var(--muted); }
-.tr-svg .peak-label { font: 600 15px var(--font-body); fill: var(--deep); }
-.tr-svg .today { stroke: var(--deep); stroke-opacity: 0.45; stroke-width: 1.2; stroke-dasharray: 5 5; }
-.tr-svg .ridge { fill: none; stroke: var(--deep); stroke-width: 2.2; stroke-linejoin: round; }
-.tr-svg .sky { fill: #F3F9FB; }
-.tr-svg .z1 { fill: var(--z1); } .tr-svg .z2 { fill: var(--z2); } .tr-svg .z3 { fill: var(--z3); } .tr-svg .z4 { fill: var(--z4); } .tr-svg .z5 { fill: var(--z5); }
-.tr-label { font: 600 1rem var(--font-head); display: block; }
-.tr-val { display: inline-block; font: 700 2.2rem/1 var(--font-head); font-variant-numeric: tabular-nums; color: #C2611F; margin: 8px 0 12px; }
-#dt { width: 100%; accent-color: var(--primary); margin: 0 0 14px; }
-.tr-read { margin: 18px 0 0; min-height: 3.3em; color: #2B4F56; }
-.tr-legend { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 6px; }
-.tr-legend li { display: grid; grid-template-columns: 16px minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 8px 12px; background: #F6FAFA; border-radius: 10px; }
-.tr-legend .sw { width: 16px; height: 16px; border-radius: 50%; }
-.tr-legend .rng { font-size: 0.88rem; font-variant-numeric: tabular-nums; color: var(--muted); }
-.tr-legend li.gone .nm { opacity: 0.5; text-decoration: line-through; }
-.tr-cap { grid-column: 1 / -1; font-size: 0.88rem; color: var(--muted); margin: 0; max-width: 80ch; }
-
-/* Investigadores */
-.people { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; margin-top: 28px; }
-.person { background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); padding: 24px; display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
-.avatar { width: 80px; height: 80px; overflow: hidden; border-radius: 50%; display: grid; place-items: center; font: 700 1.3rem var(--font-head); color: var(--deep); background: var(--c); margin-bottom: 12px; }
-.person h3 { font-weight: 600; font-size: 1.12rem; line-height: 1.3; }
-.person .tag { margin: 6px 0 10px; }
-.person .focus { font-size: 0.95rem; margin: 0 0 10px; color: #36565C; }
-.person .since { font-size: 0.85rem; color: var(--muted); margin: auto 0 0; }
-
-.avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
-
-/* Blog */
-.posts { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 420px), 1fr)); gap: 24px; align-items: start; }
-.post { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; display: flex; flex-direction: column; }
-.post-top { height: 10px; background: var(--c); }
-.post-in { padding: 22px 24px 18px; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
-.post-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; font-size: 0.85rem; color: var(--muted); }
-.post .tag { background: var(--c); }
-.post h3 { font-weight: 600; font-size: 1.3rem; line-height: 1.25; }
-.post-ex { margin: 0; color: #36565C; }
-.post-by { font-size: 0.85rem; color: var(--muted); margin: 0; }
-.post-body { border-top: 1px solid var(--line); padding-top: 14px; }
-.post-body p { margin: 0 0 1em; }
-
-/* Publicaciones */
-.pub-tools { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 20px; margin-bottom: 28px; }
-.field { width: min(100%, 340px); padding: 12px 18px; border: 1.5px solid var(--line); border-radius: 999px; background: #FFFFFF; color: var(--ink); font: inherit; }
-.field:focus { border-color: var(--bright); outline: none; box-shadow: 0 0 0 3px rgba(43, 165, 154, 0.2); }
-.pub-count { color: var(--muted); font-size: 0.92rem; margin: 0; }
-.year-group { margin-top: 28px; }
-.year { font: 700 1.35rem var(--font-head); color: var(--deep); margin: 0 0 12px; display: flex; align-items: center; gap: 14px; }
-.year::after { content: ""; flex: 1; height: 2px; background: #C7E2EC; border-radius: 2px; }
-.pub-items { display: grid; gap: 12px; }
-.pub { background: var(--card); border-radius: 14px; padding: 20px 22px; box-shadow: var(--shadow); min-width: 0; }
-.pub .tag { background: var(--sky); color: #1E4F6B; }
-.pub-title { font-weight: 600; font-size: 1.12rem; line-height: 1.35; margin: 10px 0 6px; }
-.pub-authors { color: var(--muted); margin: 0; }
-.pub-venue { margin: 2px 0 0; }
-.pub-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 20px; margin-top: 8px; }
-.pub-doi { font-size: 0.9rem; overflow-wrap: anywhere; }
-.cite-box { font-size: 0.9rem; background: var(--aqua); padding: 10px 14px; border-radius: 10px; margin: 10px 0 0; user-select: all; }
-.empty { color: var(--muted); background: #FFFFFF; border-radius: 14px; padding: 24px; margin: 0; }
-
-/* Únete */
-.join { background: linear-gradient(135deg, var(--primary) 0%, var(--deep) 100%); color: #E6F5F3; border-radius: 28px; padding: clamp(28px, 5vw, 56px); display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 56px); align-items: center; }
-.join > * { min-width: 0; }
-.join h2 { color: #FFFFFF; font-weight: 700; font-size: clamp(1.8rem, 3.5vw, 2.4rem); margin-bottom: 14px; }
-.join p { margin: 0 0 1em; max-width: 56ch; }
-.mailbox { background: #FFFFFF; color: var(--ink); border-radius: 18px; padding: 24px; }
-.mailbox .label { font-weight: 600; color: var(--muted); font-size: 0.9rem; margin: 0; }
-.mailbox .addr { font-weight: 600; font-size: 1.05rem; overflow-wrap: anywhere; margin: 6px 0 16px; user-select: all; color: var(--deep); }
-
-/* Pie de página */
-.foot { background: var(--deep); color: #BFDCDD; margin-top: clamp(56px, 8vw, 96px); }
-.foot .wrap { padding-block: 48px 28px; }
-.foot-grid { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, 1fr); gap: 32px; }
-.foot-grid > * { min-width: 0; }
-.foot h3 { color: #FFFFFF; font-size: 1rem; font-weight: 600; margin-bottom: 12px; }
-.foot p { margin: 0 0 0.6em; }
-.foot ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
-.foot a { color: #DFF1F0; text-decoration: none; }
-.foot a:hover { text-decoration: underline; }
-.foot .brand-name { color: #FFFFFF; margin-bottom: 10px; }
-.foot-bottom { border-top: 1px solid rgba(255, 255, 255, 0.15); margin-top: 36px; padding-top: 20px; font-size: 0.88rem; }
-
-@media (max-width: 860px) {
-  .hero .wrap, .about, .explore, .join { grid-template-columns: minmax(0, 1fr); }
-  .foot-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
-  .foot-grid > :first-child { grid-column: 1 / -1; }
-  .brand-sub { display: none; }
-  .logo-sem img { height: calc(var(--h-sem, 44px) * 0.8); }
-  .uni-slot img { height: calc(var(--h-uni, 40px) * 0.75); }
-}
-@media (max-width: 560px) {
-  .lines { grid-template-columns: minmax(0, 1fr); }
-  .foot-grid { grid-template-columns: minmax(0, 1fr); }
-  .nav a:not(.nav-cta) { display: none; }
-  .uni-right { display: none !important; }
-  .uni-left { padding-left: 12px; }
-}
-</style>
+<link rel="stylesheet" href="estilos.css">
 </head>
 <body>
 
@@ -284,6 +38,7 @@ section[id] { scroll-margin-top: 80px; }
       <a href="#nosotros">Nosotros</a>
       <a href="#investigadores">Investigadores</a>
       <a href="#blog">Blog</a>
+      <a href="boletin.html">Boletín</a>
       <a href="#publicaciones">Publicaciones</a>
       <a class="nav-cta" href="#unete">Únete</a>
     </nav>
@@ -340,27 +95,66 @@ section[id] { scroll-margin-top: 80px; }
   <section class="section band-aqua" id="explora">
     <div class="wrap">
       <div class="sec-head">
-        <p class="kicker">Explora</p>
-        <h2>¿Hacia dónde suben los ecosistemas?</h2>
-        <p class="intro">Mueve el control para calentar la montaña y mira cómo cada piso de vegetación se desplaza hacia la cima.</p>
+        <p class="kicker">Simulador</p>
+        <h2>Agua y carbono en una cuenca andina</h2>
+        <p class="intro">Cambia la temperatura, la lluvia y la cobertura de páramo y bosque. Mira cómo se mueven el agua y los gases de efecto invernadero, y cómo cambia el balance de la cuenca.</p>
       </div>
-      <figure class="explore" style="margin:0">
-        <svg id="tr-svg" class="tr-svg" viewBox="0 0 700 436" role="img" aria-label="Perfil altitudinal de una montaña andina con cinco pisos de vegetación. Los límites de cada piso suben cuando aumenta la temperatura."></svg>
-        <div>
-          <label for="dt" class="tr-label">Calentamiento medio</label>
-          <output id="dt-out" for="dt" class="tr-val">+2,0 °C</output>
-          <input id="dt" type="range" min="0" max="4" step="0.1" value="2">
-          <div class="pills" id="tr-presets">
-            <button type="button" class="pill" data-v="0" aria-pressed="false">Hoy</button>
-            <button type="button" class="pill" data-v="1.5" aria-pressed="false">+1,5 °C</button>
-            <button type="button" class="pill" data-v="2" aria-pressed="true">+2 °C</button>
-            <button type="button" class="pill" data-v="3" aria-pressed="false">+3 °C</button>
+      <div class="sim" id="sim">
+        <figure class="sim-figure">
+          <div class="sim-modes" id="sim-mode" role="group" aria-label="Ciclo que se muestra">
+            <button type="button" class="pill" data-m="agua" aria-pressed="true">Ciclo del agua</button>
+            <button type="button" class="pill" data-m="carbono" aria-pressed="false">Carbono y GEI</button>
           </div>
-          <p class="tr-read" id="tr-read" aria-live="polite"></p>
-          <ol class="tr-legend" id="tr-legend"></ol>
+          <div class="sim-scroll"><svg id="sim-svg" viewBox="0 0 720 460" role="img" aria-label="Diagrama de una cuenca andina con los flujos del ciclo del agua. El grosor de cada flecha es proporcional al flujo."></svg></div>
+          <ul class="sim-legend" aria-label="Leyenda del paisaje">
+            <li><i style="background:#B9C99A"></i>Páramo con frailejones</li>
+            <li><i style="background:#5FAE7E"></i>Bosque andino</li>
+            <li><i style="background:#E3D88E"></i>Potrero</li>
+            <li><i style="background:#8FC2D6"></i>Turbera y quebrada</li>
+          </ul>
+          <p class="sim-note" id="sim-note">El grosor de cada flecha es proporcional al flujo de agua.</p>
+        </figure>
+        <div class="sim-ctl">
+          <div class="sim-slider">
+            <div class="row"><label for="sim-dt">Cambio de temperatura</label><output id="sim-dt-out" for="sim-dt"></output></div>
+            <input id="sim-dt" type="range" min="-1" max="4" step="0.1" value="0">
+          </div>
+          <div class="sim-slider">
+            <div class="row"><label for="sim-dp">Cambio de precipitación</label><output id="sim-dp-out" for="sim-dp"></output></div>
+            <input id="sim-dp" type="range" min="-40" max="40" step="5" value="0">
+          </div>
+          <div class="sim-slider">
+            <div class="row"><label for="sim-cov">Páramo y bosque conservados</label><output id="sim-cov-out" for="sim-cov"></output></div>
+            <input id="sim-cov" type="range" min="20" max="100" step="5" value="100">
+            <span class="hint">El resto de la cuenca pasa a potrero.</span>
+          </div>
+          <div>
+            <p class="sim-presets-title">Escenarios</p>
+            <div class="pills sim-presets" id="sim-presets">
+              <button type="button" class="pill" data-p="hoy">Condiciones actuales</button>
+              <button type="button" class="pill" data-p="nino">El Niño</button>
+              <button type="button" class="pill" data-p="nina">La Niña</button>
+              <button type="button" class="pill" data-p="futuro">2050 cálido</button>
+              <button type="button" class="pill" data-p="potrero">Páramo convertido en potrero</button>
+            </div>
+          </div>
+          <div class="sim-balance">
+            <div class="sim-balance-head">
+              <h3>Balance anual</h3>
+              <span class="sim-pill" id="sim-pill" hidden></span>
+            </div>
+            <div class="sim-unit" id="sim-unit"></div>
+            <div class="sim-table-wrap">
+              <table class="sim-table">
+                <thead><tr><th scope="col">Flujo</th><th scope="col">Actual</th><th scope="col">Escenario</th></tr></thead>
+                <tbody id="sim-tbody"></tbody>
+              </table>
+            </div>
+            <p class="sim-read" id="sim-read" aria-live="polite"></p>
+          </div>
         </div>
-        <figcaption class="tr-cap">Esquema ilustrativo con un gradiente térmico de 6 °C por kilómetro de ascenso. Las líneas punteadas marcan los límites actuales de cada piso; los límites reales cambian con la región, la humedad y el suelo.</figcaption>
-      </figure>
+        <p class="sim-cap">Modelo ilustrativo de una cuenca andina de páramo y bosque, con valores de referencia para enseñar, no mediciones. Agua: balance anual con la ecuación de Budyko (Fu) y aporte de niebla según cobertura y temperatura. Carbono: fotosíntesis limitada por agua y temperatura, respiración del suelo con Q10 = 2,2 y metano según humedad y temperatura. CO₂ equivalente con los potenciales de calentamiento a 100 años del IPCC AR6 (CH₄ = 27, N₂O = 273). Escenarios El Niño y La Niña aproximados: +1 °C y −25 % de lluvia; −0,3 °C y +25 % de lluvia.</p>
+      </div>
     </div>
   </section>
 
@@ -384,6 +178,17 @@ section[id] { scroll-margin-top: 80px; }
         <p class="intro">Explicaciones cortas sobre los temas que trabajamos, escritas por los integrantes del grupo.</p>
       </div>
       <ol class="posts" id="posts"></ol>
+    </div>
+  </section>
+
+  <section class="section band-mint" id="boletin">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="kicker">Boletín climático</p>
+        <h2>Así estuvo el clima</h2>
+        <p class="intro">Cada boletín resume las condiciones climáticas del periodo y lo que significan para los ecosistemas que estudiamos.</p>
+      </div>
+      <div id="bol-latest"></div>
     </div>
   </section>
 
@@ -415,8 +220,8 @@ section[id] { scroll-margin-top: 80px; }
         </div>
         <div class="mailbox">
           <p class="label">Correo del semillero</p>
-          <p class="addr" id="mail-addr">correo-del-semillero@tu-universidad.edu.co</p>
-          <button type="button" class="btn btn-primary" id="mail-copy">Copiar correo</button>
+          <p class="addr" data-correo></p>
+          <button type="button" class="btn btn-primary" data-copiar-correo>Copiar correo</button>
         </div>
       </div>
     </div>
@@ -437,19 +242,28 @@ section[id] { scroll-margin-top: 80px; }
           <li><a href="#nosotros">Nosotros</a></li>
           <li><a href="#investigadores">Investigadores</a></li>
           <li><a href="#blog">Blog</a></li>
+          <li><a href="boletin.html">Boletín climático</a></li>
           <li><a href="#publicaciones">Publicaciones</a></li>
         </ul>
       </div>
       <div>
         <h3>Contacto</h3>
-        <p>correo-del-semillero@tu-universidad.edu.co</p>
-        <p>Bogotá, Colombia</p>
+        <p data-correo></p>
+        <p data-ciudad></p>
+        <p class="social">
+          <span data-red="linkedin" hidden><a href="#" target="_blank" rel="noopener">LinkedIn</a></span>
+          <span data-red="instagram" hidden><a href="#" target="_blank" rel="noopener">Instagram</a></span>
+        </p>
       </div>
     </div>
     <p class="foot-bottom">© 2026 DICEMAS · Semillero Dinámica Clima-Ecosistemas</p>
   </div>
 </footer>
 
+<script src="configuracion.js"></script>
+<script src="boletines.js"></script>
+<script src="sitio.js"></script>
+<script src="simulador.js"></script>
 <script>
 (function () {
   /* ==========================================================
@@ -461,35 +275,18 @@ section[id] { scroll-margin-top: 80px; }
      y cambia el texto entre comillas. Cada bloque termina en
      coma, excepto el último de la lista.
      Para borrar algo, elimina su bloque completo { ... }.
-     El correo de contacto está más arriba, en el HTML:
-     busca "correo-del-semillero" (aparece dos veces).
      FOTOS: sube las imágenes a una carpeta llamada "fotos" en
      GitHub y escribe aquí su ruta, por ejemplo "fotos/ana.jpg".
      - Investigadores: campo foto: "" de cada persona. Si está
        vacío o la foto no carga, se muestran las iniciales.
      - Nosotros: lista FOTOS_GRUPO, más abajo.
      Usa nombres sin espacios, tildes ni ñ, y respeta mayúsculas.
+     Otros archivos que puedes editar:
+       configuracion.js = logos, correo, ciudad y redes sociales
+       boletines.js     = boletines climáticos
      Los datos de la portada (Tipo, Programa, Reuniones) también
      están en el HTML: busca "Datos del semillero".
      ========================================================== */
-  /* ====== LOGOS ======
-     Sube los archivos a la carpeta "fotos" (PNG con fondo
-     transparente o SVG se ven mejor) y escribe aquí su ruta. */
-  var LOGOS = {
-    semillero: "",              /* ej. "fotos/logo-dicemas.png". Vacío = ícono de montaña */
-    mostrarNombre: true,        /* false oculta el texto "DICEMAS" junto al logo
-                                   (útil si el logo ya trae el nombre) */
-    alturaSemillero: 44,        /* alto del logo del semillero, en píxeles */
-
-    universidad: "",            /* ej. "fotos/logo-universidad.png". Vacío = no aparece */
-    posicionUniversidad: "derecha",
-                                /* "izquierda" = junto al logo del semillero
-                                   "derecha"   = al final de la cabecera, después del menú
-                                   "solo-pie"  = solo en el pie de página */
-    alturaUniversidad: 40,      /* alto del logo de la universidad, en píxeles */
-    enlaceUniversidad: ""       /* opcional: página web al hacer clic en el logo */
-  };
-
   var PEOPLE = [
     { n: "Ana María Torres Beltrán", r: "Docente líder", g: "Docentes", f: "Variabilidad climática y recursos hídricos en cuencas andinas", s: 2019, foto: "fotos/ana-maria-torres.jpg" },
     { n: "Camilo Restrepo Naranjo", r: "Docente investigador", g: "Docentes", f: "Percepción remota y fenología de la vegetación", s: 2020, foto: "" },
@@ -537,11 +334,11 @@ section[id] { scroll-margin-top: 80px; }
     },
     {
       date: "2026-09-12", tag: "Ecosistemas", min: 4, by: "Daniela Pérez",
-      title: "¿Hacia dónde suben los ecosistemas? Cómo leer el perfil de la portada",
-      ex: "Por qué la cima es el lugar con menos opciones cuando el clima se calienta.",
+      title: "Agua y carbono: cómo leer el simulador de la portada",
+      ex: "Qué pasa con el agua y los gases de una cuenca de páramo cuando cambian el clima y la cobertura.",
       body: [
-        "La temperatura baja cerca de 6 °C por cada kilómetro que subimos. Si el aire se calienta 2 °C, las condiciones propias de una altitud pasan a encontrarse unos 330 m más arriba. Si las especies siguen ese cambio, cada piso de vegetación se desplaza hacia la cima.",
-        "El problema aparece arriba. Un piso que ya está en la cumbre no tiene hacia dónde subir, y su área se reduce hasta desaparecer. Es una simplificación: la humedad, el suelo y la velocidad de dispersión de las especies también cuentan. La figura es un esquema para pensar, no una predicción para una montaña concreta."
+        "El modo Ciclo del agua sigue cada milímetro que entra a la cuenca: la lluvia y la niebla que atrapan los frailejones. Una parte vuelve a la atmósfera por evaporación y transpiración; el resto sale por la quebrada, rápido por escorrentía o lento como flujo base. Cuando el páramo se convierte en potrero, el suelo regula menos y el caudal se vuelve más irregular.",
+        "El modo Carbono y GEI compara lo que las plantas capturan por fotosíntesis con lo que devuelven las plantas y el suelo al respirar. Suma el metano de las turberas y el óxido nitroso de los potreros. Con más calor y menos lluvia, la respiración del suelo crece más rápido que la fotosíntesis y la cuenca puede pasar de sumidero a fuente."
       ]
     },
     {
@@ -568,165 +365,15 @@ section[id] { scroll-margin-top: 80px; }
 
 
   /* ====== Utilidades ====== */
-  var esc = function (s) {
-    return String(s).replace(/[&<>"']/g, function (c) {
-      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
-    });
-  };
-  var norm = function (s) { return String(s).normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase(); };
+  var esc = SITIO.esc, copyText = SITIO.copyText;
+  var norm = function (s) { return String(s).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase(); };
   var $ = function (id) { return document.getElementById(id); };
-  var nf1 = new Intl.NumberFormat("es-CO", { minimumFractionDigits: 1, maximumFractionDigits: 1 });
-  var nf0 = new Intl.NumberFormat("es-CO", { maximumFractionDigits: 0, useGrouping: false });
-  var r10 = function (x) { return Math.round(x / 10) * 10; };
   var PASTELS = ["#DDF1E8", "#DCEBF6", "#E6E7F6", "#F6EEDB", "#D3EEE6", "#E3F0F3"];
-
-  function copyText(text, btn, label, onFail) {
-    var done = function (ok) {
-      btn.textContent = ok ? "Copiado" : "No se pudo copiar";
-      if (!ok && onFail) onFail();
-      setTimeout(function () { btn.textContent = label; }, 1800);
-    };
-    var fallback = function () {
-      try {
-        var ta = document.createElement("textarea");
-        ta.value = text;
-        ta.setAttribute("readonly", "");
-        ta.style.cssText = "position:fixed;opacity:0;top:0;left:0";
-        document.body.appendChild(ta);
-        ta.select();
-        var ok = document.execCommand("copy");
-        ta.remove();
-        done(ok);
-      } catch (e) { done(false); }
-    };
-    try {
-      navigator.clipboard.writeText(text).then(function () { done(true); }, fallback);
-    } catch (e) { fallback(); }
-  }
-
-  /* ====== Logos ====== */
-  (function () {
-    var root = document.documentElement.style;
-    root.setProperty("--h-sem", (parseInt(LOGOS.alturaSemillero, 10) || 44) + "px");
-    root.setProperty("--h-uni", (parseInt(LOGOS.alturaUniversidad, 10) || 40) + "px");
-    var foot = $("foot-logos"), footHtml = "";
-    if (LOGOS.semillero) {
-      $("logo-sem").innerHTML = '<img src="' + esc(LOGOS.semillero) + '" alt="Logo de DICEMAS">';
-      footHtml += '<img src="' + esc(LOGOS.semillero) + '" alt="Logo de DICEMAS">';
-    }
-    if (LOGOS.mostrarNombre === false) $("brand-text").hidden = true;
-    if (LOGOS.universidad) {
-      var img = '<img src="' + esc(LOGOS.universidad) + '" alt="Logo de la universidad">';
-      var uni = LOGOS.enlaceUniversidad ? '<a href="' + esc(LOGOS.enlaceUniversidad) + '" target="_blank" rel="noopener">' + img + "</a>" : img;
-      var pos = LOGOS.posicionUniversidad;
-      if (pos === "izquierda") { $("uni-left").innerHTML = uni; $("uni-left").hidden = false; }
-      else if (pos !== "solo-pie") { $("uni-right").innerHTML = uni; $("uni-right").hidden = false; }
-      footHtml += uni;
-    }
-    if (footHtml) { foot.innerHTML = footHtml; foot.hidden = false; }
-  })();
 
   /* ====== Datos de la portada ====== */
   $("f-people").textContent = PEOPLE.length + " personas";
   $("f-pubs").textContent = PUBS.length + " registros";
   $("people-meta").textContent = "Docentes, estudiantes y egresados que hacen parte del semillero. Somos " + PEOPLE.length + " integrantes.";
-
-  /* ====== Perfil altitudinal ====== */
-  var NS = "http://www.w3.org/2000/svg";
-  var svg = $("tr-svg");
-  var mk = function (tag, attrs, parent) {
-    var e = document.createElementNS(NS, tag);
-    for (var k in attrs) e.setAttribute(k, attrs[k]);
-    if (parent) parent.appendChild(e);
-    return e;
-  };
-  var Y = function (e) { return 420 - e / 12; };
-  var TOP = 4800, PEAK = 4600, GRAD = 6;
-  var ZONES = [
-    { n: "Selva basal", lo: 0 },
-    { n: "Bosque subandino", lo: 1000 },
-    { n: "Bosque andino", lo: 2300 },
-    { n: "Páramo", lo: 3300 },
-    { n: "Superpáramo", lo: 4200 }
-  ];
-  var prof = [[70, 0], [112, 380], [158, 900], [214, 1450], [262, 2050], [316, 2700], [362, 3350], [408, 4000], [450, PEAK], [488, 4150], [532, 3450], [572, 2750], [612, 1950], [646, 1000], [670, 0]];
-  var outline = "M" + prof.map(function (p) { return p[0] + "," + Y(p[1]); }).join(" L") + " Z";
-
-  var defs = mk("defs", {}, svg);
-  var cp = mk("clipPath", { id: "mtn-clip" }, defs);
-  mk("path", { d: outline }, cp);
-  mk("rect", { x: 58, y: 0, width: 632, height: 420, rx: 10, "class": "sky" }, svg);
-  var gridG = mk("g", {}, svg);
-  [0, 1000, 2000, 3000, 4000].forEach(function (e) {
-    mk("line", { x1: 58, x2: 690, y1: Y(e), y2: Y(e), "class": "grid" }, gridG);
-    var t = mk("text", { x: 50, y: Y(e) + 5, "text-anchor": "end", "class": "tick" }, gridG);
-    t.textContent = String(e);
-  });
-  var unit = mk("text", { x: 50, y: 14, "text-anchor": "end", "class": "tick" }, gridG);
-  unit.textContent = "m";
-  var zg = mk("g", { "clip-path": "url(#mtn-clip)" }, svg);
-  var rects = ZONES.map(function (z, i) { return mk("rect", { x: 58, width: 632, "class": "z" + (i + 1) }, zg); });
-  var tg = mk("g", { "clip-path": "url(#mtn-clip)" }, svg);
-  ZONES.slice(1).forEach(function (z) {
-    mk("line", { x1: 58, x2: 690, y1: Y(z.lo), y2: Y(z.lo), "class": "today" }, tg);
-  });
-  mk("path", { d: outline, "class": "ridge" }, svg);
-  var pk = mk("text", { x: 450, y: 30, "text-anchor": "middle", "class": "peak-label" }, svg);
-  pk.textContent = "Cima " + nf0.format(PEAK) + " m";
-
-  var legend = $("tr-legend");
-  legend.innerHTML = ZONES.map(function (z, i) {
-    return '<li><span class="sw" style="background:var(--z' + (i + 1) + ')"></span><span class="nm">' + esc(z.n) + '</span><span class="rng"></span></li>';
-  }).join("");
-  var legItems = Array.prototype.slice.call(legend.children);
-  var slider = $("dt"), out = $("dt-out"), read = $("tr-read"), presets = $("tr-presets");
-  var cur = parseFloat(slider.value), raf = 0;
-
-  function render(dt) {
-    var shift = dt / GRAD * 1000;
-    ZONES.forEach(function (z, i) {
-      var lo = i === 0 ? 0 : z.lo + shift;
-      var hi = i === ZONES.length - 1 ? TOP : ZONES[i + 1].lo + shift;
-      var loC = Math.min(lo, TOP), hiC = Math.min(hi, TOP);
-      rects[i].setAttribute("y", Y(hiC));
-      rects[i].setAttribute("height", Math.max(0, Y(loC) - Y(hiC)));
-      var gone = lo >= PEAK;
-      legItems[i].classList.toggle("gone", gone);
-      legItems[i].querySelector(".rng").textContent = gone ? "sin área" : nf0.format(r10(lo)) + "–" + nf0.format(r10(Math.min(hi, PEAK))) + " m";
-    });
-    out.textContent = dt < 0.05 ? "Hoy" : "+" + nf1.format(dt) + " °C";
-    var left = PEAK - (ZONES[4].lo + shift);
-    if (dt < 0.05) {
-      read.textContent = "Así se distribuyen hoy los pisos en un perfil de ejemplo, de 0 a " + nf0.format(PEAK) + " m. El superpáramo ocupa los últimos " + nf0.format(Math.round(left)) + " m.";
-    } else {
-      read.textContent = "Con +" + nf1.format(dt) + " °C, cada límite sube cerca de " + nf0.format(r10(shift)) + " m. " +
-        (left <= 0 ? "El superpáramo desaparece: no hay terreno más alto." : "El superpáramo se reduce a " + nf0.format(r10(left)) + " m de desnivel.");
-    }
-    Array.prototype.forEach.call(presets.children, function (b) {
-      b.setAttribute("aria-pressed", Math.abs(parseFloat(b.getAttribute("data-v")) - dt) < 0.05 ? "true" : "false");
-    });
-  }
-  function setTo(v) {
-    cancelAnimationFrame(raf);
-    var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduce) { cur = v; slider.value = v; render(v); return; }
-    var from = cur, t0 = performance.now(), D = 380;
-    var step = function (t) {
-      var p = Math.min(1, (t - t0) / D), e = 1 - Math.pow(1 - p, 3);
-      cur = from + (v - from) * e;
-      slider.value = cur;
-      render(cur);
-      if (p < 1) raf = requestAnimationFrame(step);
-      else { cur = v; slider.value = v; render(v); }
-    };
-    raf = requestAnimationFrame(step);
-  }
-  slider.addEventListener("input", function () { cancelAnimationFrame(raf); cur = parseFloat(slider.value); render(cur); });
-  presets.addEventListener("click", function (e) {
-    var b = e.target.closest("button[data-v]");
-    if (b) setTo(parseFloat(b.getAttribute("data-v")));
-  });
-  render(cur);
 
   /* ====== Líneas de investigación ====== */
   var ICONS = [
@@ -742,14 +389,6 @@ section[id] { scroll-margin-top: 80px; }
 
   /* ====== Fotos ====== */
   var MOUNT = '<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M4 38l13-18 8 10 6-8 13 16Z" fill="#AED7B2"/><circle cx="35" cy="13" r="5" fill="#F6E3A8"/></svg>';
-  /* Si una imagen no carga, quita la <img> y deja el respaldo visible */
-  document.addEventListener("error", function (e) {
-    var img = e.target;
-    if (!img || img.tagName !== "IMG" || !img.hasAttribute("data-fb")) return;
-    var box = img.parentElement;
-    box.classList.remove("has-img");
-    box.innerHTML = img.getAttribute("data-fb");
-  }, true);
   $("gallery").innerHTML = FOTOS_GRUPO.map(function (f) {
     var fb = MOUNT + "Foto pendiente: " + esc(f.src);
     return '<figure><div class="ph has-img"><img src="' + esc(f.src) + '" alt="' + esc(f.pie) + '" loading="lazy" data-fb="' + esc(fb) + '"></div>' +
@@ -804,6 +443,22 @@ section[id] { scroll-margin-top: 80px; }
     b.setAttribute("aria-expanded", String(open));
     b.textContent = open ? "Cerrar entrada ↑" : "Leer entrada →";
   });
+
+  /* ====== Boletín climático (vista previa) ====== */
+  (function () {
+    if (typeof BOLETINES === "undefined" || !BOLETINES.length) { $("boletin").hidden = true; return; }
+    var b = BOLETINES.slice().sort(function (a, c) { return String(c.fecha).localeCompare(String(a.fecha)); })[0];
+    var colors = ["#DCEBF6", "#DDF1E8", "#F6EEDB", "#E6E7F6", "#D3EEE6", "#E3F0F3"];
+    var ind = (b.indicadores || []).slice(0, 4).map(function (x, i) {
+      return '<div style="--c:' + colors[i % colors.length] + '"><dt>' + esc(x.n) + '</dt><dd><span class="v">' + esc(x.v) + "</span>" + (x.nota ? '<span class="nota">' + esc(x.nota) + "</span>" : "") + "</dd></div>";
+    }).join("");
+    $("bol-latest").innerHTML = '<article class="bol-card"><div>' +
+      '<p class="bol-meta"><span class="tag bol-new">Más reciente</span><span>Boletín N.º ' + esc(b.numero) + " · " + esc(b.periodo) + "</span></p>" +
+      "<h3>" + esc(b.titulo) + '</h3><p class="bol-sum">' + esc(b.resumen) + "</p>" +
+      '<div class="bol-actions"><a class="btn btn-primary" href="boletin.html#b' + esc(b.numero) + '">Leer el boletín</a>' +
+      '<a class="btn btn-ghost" href="boletin.html">Ver todos los boletines</a></div></div>' +
+      (ind ? '<dl class="bol-ind" aria-label="Indicadores del periodo">' + ind + "</dl>" : "<div></div>") + "</article>";
+  })();
 
   /* ====== Publicaciones ====== */
   var cite = function (p) {
@@ -861,10 +516,6 @@ section[id] { scroll-margin-top: 80px; }
   });
   renderPubs();
 
-  /* ====== Correo ====== */
-  $("mail-copy").addEventListener("click", function (e) {
-    copyText($("mail-addr").textContent, e.currentTarget, "Copiar correo");
-  });
 })();
 </script>
 </body>
