@@ -1,0 +1,734 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>DICEMAS · Semillero Dinámica Clima-Ecosistemas</title>
+<meta name="description" content="Semillero de investigación DICEMAS: dinámica entre el clima y los ecosistemas. Investigadores, blog y publicaciones.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:ital,wght@0,400..700;1,400&display=swap">
+<style>
+/* Concepto: un perfil altitudinal andino como portada, con el calentamiento como control.
+   El resto de la página es sobrio: columnas, líneas finas y tipografía. */
+:root {
+  --bg: #F1F5F3;
+  --surface: #E4ECE8;
+  --fg: #12201C;
+  --muted: #4A5E57;
+  --line: #C3D0CA;
+  --accent: #0B6B5E;
+  --accent-fg: #FFFFFF;
+  --warm: #B04F08;
+  --z1: #2E7D5A;
+  --z2: #5FA46B;
+  --z3: #93B96E;
+  --z4: #CDB45B;
+  --z5: #B7B8AE;
+  --font-display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "Source Sans 3", "Segoe UI", Helvetica, Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0D1815;
+    --surface: #15251F;
+    --fg: #E6EFEB;
+    --muted: #9DB2AA;
+    --line: #28392F;
+    --accent: #5CC9B6;
+    --accent-fg: #0D1815;
+    --warm: #F0A35E;
+    --z1: #3C9C73;
+    --z2: #6DB87A;
+    --z3: #A3C97F;
+    --z4: #D9C06A;
+    --z5: #8F9288;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0D1815;
+  --surface: #15251F;
+  --fg: #E6EFEB;
+  --muted: #9DB2AA;
+  --line: #28392F;
+  --accent: #5CC9B6;
+  --accent-fg: #0D1815;
+  --warm: #F0A35E;
+  --z1: #3C9C73;
+  --z2: #6DB87A;
+  --z3: #A3C97F;
+  --z4: #D9C06A;
+  --z5: #8F9288;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; }
+img { max-width: 100%; }
+[hidden] { display: none !important; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition: none !important; animation: none !important; }
+}
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font: 400 17px/1.6 var(--font-body);
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0 0 auto;
+  height: env(safe-area-inset-top, 0px);
+  z-index: 10;
+  background: var(--bg);
+}
+a { color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+section[id] { scroll-margin-top: 72px; }
+.wrap {
+  max-width: 1180px;
+  margin-inline: auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+.eyebrow {
+  font: 500 0.75rem/1 var(--font-mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0;
+}
+h1, h2, h3 { margin: 0; text-wrap: balance; }
+
+/* Aviso de borrador */
+.draft { background: var(--surface); border-bottom: 1px solid var(--line); font: 500 0.75rem/1.4 var(--font-mono); color: var(--muted); }
+.draft .wrap { padding-block: 8px; }
+
+/* Cabecera */
+.site-head { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: var(--bg); border-bottom: 1px solid var(--line); }
+.site-head .wrap { display: flex; align-items: center; gap: 16px; height: 56px; }
+.brand { font: 800 1.25rem/1 var(--font-display); letter-spacing: -0.02em; color: var(--fg); text-decoration: none; }
+.nav { flex: 1; min-width: 0; display: flex; justify-content: flex-end; gap: 2px; overflow-x: auto; scrollbar-width: none; }
+.nav::-webkit-scrollbar { display: none; }
+.nav a { padding: 8px 10px; color: var(--muted); text-decoration: none; font-size: 0.95rem; white-space: nowrap; border-radius: 4px; }
+.nav a:hover { color: var(--fg); background: var(--surface); }
+
+/* Portada */
+.hero { padding-block: clamp(32px, 6vw, 72px) clamp(40px, 6vw, 72px); }
+.hero-top { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: clamp(24px, 5vw, 72px); align-items: end; }
+.hero-top > * { min-width: 0; }
+.hero h1 {
+  font: 800 clamp(3.6rem, 14vw, 8rem)/0.9 var(--font-display);
+  font-variation-settings: "opsz" 96;
+  letter-spacing: -0.04em;
+  margin-top: 18px;
+}
+.subtitle { font: 600 clamp(1.2rem, 2.4vw, 1.7rem)/1.2 var(--font-display); color: var(--accent); margin: 14px 0 0; }
+.hero-side { display: grid; gap: 20px; }
+.lead { font-size: clamp(1.1rem, 2vw, 1.3rem); line-height: 1.5; max-width: 46ch; margin: 0; }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.btn { display: inline-block; padding: 12px 18px; border-radius: 4px; font: 600 0.95rem/1.2 var(--font-body); text-decoration: none; border: 1px solid var(--accent); }
+.btn-primary { background: var(--accent); color: var(--accent-fg); }
+.btn-ghost { background: transparent; color: var(--accent); }
+.btn:hover { filter: brightness(1.08); }
+.meta { font: 400 0.8rem/1.5 var(--font-mono); color: var(--muted); margin: 0; }
+
+/* Perfil altitudinal */
+.transect { margin: clamp(36px, 5vw, 64px) 0 0; padding-top: 28px; border-top: 1px solid var(--line); }
+.tr-grid { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 56px); align-items: start; }
+.tr-grid > * { min-width: 0; }
+.tr-svg { width: 100%; height: auto; display: block; max-width: 100%; }
+.tr-svg .grid { stroke: var(--line); stroke-width: 1; }
+.tr-svg .tick { font: 500 15px var(--font-mono); fill: var(--muted); }
+.tr-svg .peak-label { font: 500 15px var(--font-mono); fill: var(--fg); }
+.tr-svg .today { stroke: var(--fg); stroke-opacity: 0.6; stroke-width: 1.2; stroke-dasharray: 5 5; }
+.tr-svg .ridge { fill: none; stroke: var(--fg); stroke-width: 2; stroke-linejoin: round; }
+.tr-svg .z1 { fill: var(--z1); }
+.tr-svg .z2 { fill: var(--z2); }
+.tr-svg .z3 { fill: var(--z3); }
+.tr-svg .z4 { fill: var(--z4); }
+.tr-svg .z5 { fill: var(--z5); }
+.tr-val { display: block; font: 500 2.4rem/1 var(--font-mono); font-variant-numeric: tabular-nums; color: var(--warm); margin: 10px 0 14px; }
+.tr-ctl input[type="range"] { width: 100%; accent-color: var(--accent); margin: 0 0 14px; }
+.tr-presets { display: flex; flex-wrap: wrap; gap: 8px; }
+.tr-read { margin: 20px 0 0; min-height: 3.2em; max-width: 52ch; }
+.tr-legend { list-style: none; margin: 16px 0 0; padding: 0; }
+.tr-legend li { display: grid; grid-template-columns: 14px minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 9px 0; border-top: 1px solid var(--line); }
+.tr-legend .sw { width: 14px; height: 14px; border-radius: 2px; }
+.tr-legend .rng { font: 400 0.85rem var(--font-mono); font-variant-numeric: tabular-nums; color: var(--muted); }
+.tr-legend li.gone .nm { opacity: 0.55; text-decoration: line-through; }
+.tr-cap { font-size: 0.85rem; color: var(--muted); max-width: 70ch; margin-top: 20px; }
+
+/* Controles comunes */
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { font: 500 0.8rem/1 var(--font-mono); padding: 9px 12px; border: 1px solid var(--line); background: transparent; color: var(--fg); border-radius: 4px; cursor: pointer; }
+.chip:hover { background: var(--surface); }
+.chip[aria-pressed="true"] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.field { width: min(100%, 360px); padding: 11px 12px; border: 1px solid var(--line); border-radius: 4px; background: var(--bg); color: var(--fg); font: inherit; }
+.textbtn { background: none; border: 0; padding: 8px 0; color: var(--accent); font: 600 0.95rem var(--font-body); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+
+/* Secciones */
+.section { padding-block: clamp(48px, 8vw, 96px); border-top: 1px solid var(--line); }
+.sec-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 24px; margin-bottom: 32px; }
+.sec-head h2 { font: 700 clamp(1.9rem, 4vw, 2.8rem)/1.05 var(--font-display); letter-spacing: -0.025em; }
+.sec-meta { font: 400 0.8rem/1.4 var(--font-mono); color: var(--muted); margin: 0; }
+
+/* Nosotros */
+.about { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 80px); }
+.about > * { min-width: 0; }
+.about-text p { max-width: 58ch; margin: 0 0 1em; }
+.tools { list-style: none; display: flex; flex-wrap: wrap; margin: 24px 0 0; padding: 0; font: 400 0.85rem/1.8 var(--font-mono); color: var(--muted); }
+.tools li + li::before { content: "·"; margin-inline: 0.7em; }
+.lines { list-style: none; margin: 0; padding: 0; }
+.lines li { padding: 18px 0; border-top: 1px solid var(--line); }
+.lines li:last-child { border-bottom: 1px solid var(--line); }
+.lines h3 { font: 600 1.2rem/1.25 var(--font-display); margin-bottom: 4px; }
+.lines p { margin: 0; color: var(--muted); }
+
+/* Investigadores */
+.people { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 0 40px; margin-top: 24px; }
+.person { display: grid; grid-template-columns: 52px minmax(0, 1fr); gap: 16px; padding: 20px 0 24px; border-top: 1px solid var(--line); }
+.avatar { width: 52px; height: 52px; border-radius: 4px; display: grid; place-items: center; font: 700 1.1rem var(--font-display); background: var(--surface); background: color-mix(in srgb, var(--c) 30%, var(--bg)); color: var(--fg); }
+.person h3 { font: 600 1.12rem/1.25 var(--font-display); }
+.person .role { font: 500 0.72rem/1.4 var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin: 4px 0 8px; }
+.person .focus { font-size: 0.95rem; margin: 0 0 6px; }
+.person .since { font: 400 0.75rem var(--font-mono); color: var(--muted); margin: 0; }
+
+/* Blog */
+.posts { list-style: none; margin: 0; padding: 0; }
+.post { display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: 8px 32px; padding: 28px 0; border-top: 1px solid var(--line); }
+.post:last-child { border-bottom: 1px solid var(--line); }
+.post-side { display: flex; flex-direction: column; gap: 6px; font: 400 0.8rem var(--font-mono); color: var(--muted); }
+.post-tag { color: var(--accent); text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.72rem; font-weight: 500; }
+.post-main { min-width: 0; }
+.post h3 { font: 600 clamp(1.3rem, 2.4vw, 1.75rem)/1.2 var(--font-display); letter-spacing: -0.015em; margin-bottom: 8px; }
+.post-ex { margin: 0 0 8px; max-width: 62ch; }
+.post-by { font: 400 0.8rem var(--font-mono); color: var(--muted); margin: 0; }
+.post-body { max-width: 65ch; padding-top: 16px; }
+.post-body p { margin: 0 0 1em; }
+
+/* Publicaciones */
+.pub-tools { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 24px; margin-bottom: 28px; }
+.pub-count { font: 400 0.8rem var(--font-mono); color: var(--muted); margin: 0; }
+.year-group { display: grid; grid-template-columns: 90px minmax(0, 1fr); gap: 0 24px; padding-block: 24px; border-top: 1px solid var(--line); }
+.year { font: 500 1.5rem/1.2 var(--font-mono); color: var(--muted); }
+.pub-items { display: grid; gap: 28px; min-width: 0; }
+.pub-type { font: 500 0.72rem/1.4 var(--font-mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin: 0; }
+.pub-title { font: 600 1.15rem/1.3 var(--font-display); margin: 4px 0 6px; }
+.pub-authors { color: var(--muted); margin: 0; }
+.pub-venue { margin: 2px 0 0; }
+.pub-venue em { font-style: italic; }
+.pub-doi { font: 400 0.8rem var(--font-mono); color: var(--muted); margin: 4px 0 0; overflow-wrap: anywhere; }
+.cite-box { font-size: 0.9rem; background: var(--surface); padding: 10px 12px; border-radius: 4px; margin: 8px 0 0; user-select: all; }
+.empty { color: var(--muted); padding: 24px 0; border-top: 1px solid var(--line); margin: 0; }
+
+/* Únete */
+.join { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 80px); align-items: start; }
+.join > * { min-width: 0; }
+.join p { max-width: 54ch; margin: 0 0 1em; }
+.mailbox { background: var(--surface); padding: 24px; border-radius: 4px; }
+.mailbox .addr { font: 500 1rem/1.4 var(--font-mono); overflow-wrap: anywhere; margin: 10px 0 16px; user-select: all; }
+
+.foot { border-top: 1px solid var(--line); padding-block: 32px; color: var(--muted); font-size: 0.9rem; }
+.foot p { margin: 0; }
+
+@media (max-width: 820px) {
+  .hero-top, .tr-grid, .about, .join { grid-template-columns: minmax(0, 1fr); }
+  .post { grid-template-columns: minmax(0, 1fr); }
+  .post-side { flex-direction: row; gap: 16px; align-items: baseline; }
+  .year-group { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+}
+</style>
+
+</head>
+<body>
+<div class="draft"><div class="wrap">Borrador: los nombres, textos, entradas y publicaciones son ejemplos para reemplazar con los del grupo.</div></div>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="#inicio">DICEMAS</a>
+    <nav class="nav" aria-label="Secciones">
+      <a href="#nosotros">Nosotros</a>
+      <a href="#investigadores">Investigadores</a>
+      <a href="#blog">Blog</a>
+      <a href="#publicaciones">Publicaciones</a>
+      <a href="#unete">Únete</a>
+    </nav>
+  </div>
+</header>
+
+<main id="inicio">
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-top">
+        <div>
+          <p class="eyebrow">Semillero de investigación</p>
+          <h1>DICEMAS</h1>
+          <p class="subtitle">Dinámica Clima-Ecosistemas</p>
+        </div>
+        <div class="hero-side">
+          <p class="lead">Estudiamos cómo la variabilidad y el cambio del clima transforman la vegetación, el agua y la distribución de los ecosistemas, de la selva basal al superpáramo.</p>
+          <div class="actions">
+            <a class="btn btn-primary" href="#publicaciones">Ver publicaciones</a>
+            <a class="btn btn-ghost" href="#investigadores">Conocer al equipo</a>
+          </div>
+          <p class="meta" id="hero-meta"></p>
+        </div>
+      </div>
+
+      <figure class="transect" aria-labelledby="tr-cap">
+        <div class="tr-grid">
+          <svg id="tr-svg" class="tr-svg" viewBox="0 0 700 436" role="img" aria-label="Perfil altitudinal de una montaña andina con cinco pisos de vegetación. Los límites de cada piso suben cuando aumenta la temperatura."></svg>
+          <div class="tr-panel">
+            <div class="tr-ctl">
+              <label for="dt" class="eyebrow">Calentamiento medio</label>
+              <output id="dt-out" for="dt" class="tr-val">+2,0 °C</output>
+              <input id="dt" type="range" min="0" max="4" step="0.1" value="2">
+              <div class="tr-presets" id="tr-presets">
+                <button type="button" class="chip" data-v="0" aria-pressed="false">Hoy</button>
+                <button type="button" class="chip" data-v="1.5" aria-pressed="false">+1,5 °C</button>
+                <button type="button" class="chip" data-v="2" aria-pressed="true">+2 °C</button>
+                <button type="button" class="chip" data-v="3" aria-pressed="false">+3 °C</button>
+              </div>
+            </div>
+            <p class="tr-read" id="tr-read" aria-live="polite"></p>
+            <ol class="tr-legend" id="tr-legend"></ol>
+          </div>
+        </div>
+        <figcaption class="tr-cap" id="tr-cap">Esquema ilustrativo con un gradiente térmico de 6 °C por kilómetro de ascenso. Las líneas punteadas marcan los límites actuales de cada piso; los límites reales cambian con la región, la humedad y el suelo.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section" id="nosotros">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Nosotros</h2>
+        <p class="sec-meta" id="lines-meta"></p>
+      </div>
+      <div class="about">
+        <div class="about-text">
+          <p>DICEMAS es un semillero de investigación que estudia la dinámica entre el clima y los ecosistemas. Trabajamos con series de tiempo meteorológicas, imágenes de satélite y datos de campo para entender cómo responden los páramos y los bosques andinos a la variabilidad y al cambio del clima.</p>
+          <p>Somos un grupo abierto a estudiantes de pregrado y posgrado. Aprendemos haciendo: cada integrante formula una pregunta, la trabaja con datos reales y la presenta en seminarios, congresos y publicaciones.</p>
+          <ul class="tools" aria-label="Datos y herramientas">
+            <li>Python</li><li>R</li><li>Google Earth Engine</li><li>QGIS</li><li>Series del IDEAM</li><li>Sentinel-2 y MODIS</li>
+          </ul>
+        </div>
+        <ul class="lines" id="lines"></ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="investigadores">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Investigadores</h2>
+        <p class="sec-meta" id="people-meta"></p>
+      </div>
+      <div class="chips" id="people-filter" role="group" aria-label="Filtrar por rol"></div>
+      <div class="people" id="people"></div>
+    </div>
+  </section>
+
+  <section class="section" id="blog">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Blog</h2>
+        <p class="sec-meta" id="blog-meta"></p>
+      </div>
+      <ol class="posts" id="posts"></ol>
+    </div>
+  </section>
+
+  <section class="section" id="publicaciones">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Publicaciones</h2>
+        <p class="sec-meta" id="pub-meta"></p>
+      </div>
+      <div class="pub-tools">
+        <div>
+          <label class="sr" for="pub-q">Buscar por título o autor</label>
+          <input class="field" id="pub-q" type="search" placeholder="Buscar por título o autor" autocomplete="off">
+        </div>
+        <div class="chips" id="pub-filter" role="group" aria-label="Filtrar por tipo"></div>
+        <p class="pub-count" id="pub-count" aria-live="polite"></p>
+      </div>
+      <div id="pubs"></div>
+    </div>
+  </section>
+
+  <section class="section" id="unete">
+    <div class="wrap">
+      <div class="sec-head"><h2>Únete al semillero</h2></div>
+      <div class="join">
+        <div>
+          <p>Reunimos estudiantes de ciencias ambientales, biología, geografía, estadística e ingenierías. No necesitas experiencia previa en programación; sí ganas de aprender y de hacer preguntas sobre el clima y los ecosistemas.</p>
+          <p>Nos reunimos cada semana para discutir lecturas y avances. Escríbenos con tu programa, tu semestre y el tema que más te interesa.</p>
+        </div>
+        <div class="mailbox">
+          <p class="eyebrow">Correo del semillero</p>
+          <p class="addr" id="mail-addr">correo-del-semillero@tu-universidad.edu.co</p>
+          <button type="button" class="chip" id="mail-copy">Copiar correo</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <p>DICEMAS · Semillero de investigación Dinámica Clima-Ecosistemas · 2026</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  document.documentElement.lang = "es";
+
+  /* ==========================================================
+     CÓMO EDITAR EL CONTENIDO
+     Todo el contenido del sitio está en las listas de abajo:
+       PEOPLE = investigadores   LINES = líneas de investigación
+       POSTS  = entradas del blog   PUBS = publicaciones
+     Para agregar algo, copia un bloque { ... }, pégalo debajo
+     y cambia el texto entre comillas. Cada bloque termina en
+     coma, excepto el último de la lista.
+     Para borrar algo, elimina su bloque completo { ... }.
+     El correo de contacto está más arriba, en el HTML:
+     busca "correo-del-semillero".
+     ========================================================== */
+  var PEOPLE = [
+    { n: "Ana María Torres Beltrán", r: "Docente líder", g: "Docentes", f: "Variabilidad climática y recursos hídricos en cuencas andinas", s: 2019 },
+    { n: "Camilo Restrepo Naranjo", r: "Docente investigador", g: "Docentes", f: "Percepción remota y fenología de la vegetación", s: 2020 },
+    { n: "Daniela Pérez Rojas", r: "Estudiante de maestría", g: "Estudiantes", f: "Respuesta del páramo a la precipitación interanual", s: 2023 },
+    { n: "Juan Sebastián Moreno", r: "Estudiante de maestría", g: "Estudiantes", f: "Series de tiempo de NDVI y ENSO", s: 2023 },
+    { n: "Valentina Castaño Ruiz", r: "Estudiante de pregrado", g: "Estudiantes", f: "Limpieza y análisis de datos de estaciones meteorológicas", s: 2025 },
+    { n: "Santiago Herrera Díaz", r: "Estudiante de pregrado", g: "Estudiantes", f: "Cobertura de nubes en imágenes Sentinel-2 de alta montaña", s: 2025 },
+    { n: "Laura Camila Ortiz", r: "Egresada", g: "Egresados", f: "Distribución de especies de bosque andino", s: 2021 },
+    { n: "Andrés Felipe Gil", r: "Egresado", g: "Egresados", f: "Flujos de carbono en bosques secundarios", s: 2021 }
+  ];
+
+  var LINES = [
+    { t: "Variabilidad y cambio climático", d: "Tendencias de temperatura y precipitación, y la influencia de El Niño–Oscilación del Sur (ENSO) en las cuencas andinas." },
+    { t: "Fenología y productividad", d: "Seguimiento de la actividad de la vegetación con índices como NDVI y EVI a partir de imágenes de satélite." },
+    { t: "Páramos y bosques andinos", d: "Respuesta de los ecosistemas de alta montaña al calentamiento y a los cambios en la humedad." },
+    { t: "Modelación y datos abiertos", d: "Series de tiempo, aprendizaje automático y herramientas abiertas para integrar clima y ecosistemas." }
+  ];
+
+  var POSTS = [
+    {
+      date: "2026-10-14", tag: "Percepción remota", min: 5, by: "Camilo Restrepo",
+      title: "NDVI: qué mide el verdor visto desde el espacio",
+      ex: "El índice de vegetación más usado compara dos colores que el ojo no distingue igual: el rojo y el infrarrojo cercano.",
+      body: [
+        "El NDVI (índice de vegetación de diferencia normalizada) se calcula con la reflectancia en el rojo y en el infrarrojo cercano: (NIR − Rojo) / (NIR + Rojo). Las hojas sanas absorben mucha luz roja para hacer fotosíntesis y reflejan mucho infrarrojo cercano, así que un dosel verde y denso da valores altos.",
+        "El resultado va de −1 a 1. El agua y las nubes suelen dar valores bajos o negativos, el suelo desnudo queda cerca de cero y la vegetación densa se acerca a 0,8 o más. En montañas tropicales hay dos problemas frecuentes: la nubosidad, que deja huecos en las series, y la saturación del índice en doseles muy densos. Por eso también usamos el EVI y combinamos varias fechas."
+      ]
+    },
+    {
+      date: "2026-09-30", tag: "Clima", min: 4, by: "Ana María Torres",
+      title: "El Niño y La Niña en las montañas colombianas",
+      ex: "La fase del Pacífico ecuatorial cambia la lluvia que reciben las cuencas andinas, pero el efecto no es igual en todas las regiones.",
+      body: [
+        "El ENSO alterna entre una fase cálida (El Niño), una fría (La Niña) y una neutra. En buena parte de Colombia, El Niño tiende a asociarse con menos lluvia y La Niña con más, aunque la intensidad cambia según la región y la época del año.",
+        "Para un ecosistema, esto significa años con déficit de agua y mayor riesgo de incendios, y años con exceso de humedad. Comparar series de precipitación y de NDVI con los índices oceánicos nos permite medir cuánto de la variación de la vegetación se explica por el ENSO y cuánto por otros factores."
+      ]
+    },
+    {
+      date: "2026-09-12", tag: "Ecosistemas", min: 4, by: "Daniela Pérez",
+      title: "¿Hacia dónde suben los ecosistemas? Cómo leer el perfil de la portada",
+      ex: "Por qué la cima es el lugar con menos opciones cuando el clima se calienta.",
+      body: [
+        "La temperatura baja cerca de 6 °C por cada kilómetro que subimos. Si el aire se calienta 2 °C, las condiciones propias de una altitud pasan a encontrarse unos 330 m más arriba. Si las especies siguen ese cambio, cada piso de vegetación se desplaza hacia la cima.",
+        "El problema aparece arriba. Un piso que ya está en la cumbre no tiene hacia dónde subir, y su área se reduce hasta desaparecer. Es una simplificación: la humedad, el suelo y la velocidad de dispersión de las especies también cuentan. La figura es un esquema para pensar, no una predicción para una montaña concreta."
+      ]
+    },
+    {
+      date: "2026-08-28", tag: "Semillero", min: 3, by: "Laura Ortiz",
+      title: "Cómo empezar en un semillero de investigación",
+      ex: "Cuatro pasos para pasar de la curiosidad a un primer resultado.",
+      body: [
+        "Primero, asiste a las reuniones y lee con el grupo: escuchar cómo se discute un artículo enseña más que leerlo a solas. Segundo, elige una pregunta pequeña que se pueda responder con datos que ya existen, por ejemplo la tendencia de lluvia de una estación.",
+        "Tercero, aprende una herramienta a la vez, como Python o R, aplicándola a esa pregunta. Cuarto, presenta un avance corto cada pocas semanas. Un primer gráfico claro vale más que un análisis largo sin terminar."
+      ]
+    }
+  ];
+
+  var PUBS = [
+    { t: "Artículo", y: 2026, a: ["Torres, A. M.", "Restrepo, C.", "Pérez, D."], title: "Respuesta fenológica de la vegetación de páramo a la variabilidad interanual de la precipitación", v: "Nombre de la revista", d: "vol. 00(0), 1–15", doi: "10.0000/ejemplo.001" },
+    { t: "Ponencia", y: 2026, a: ["Herrera, S.", "Restrepo, C."], title: "Cobertura de nubes y huecos de datos en series Sentinel-2 de alta montaña", v: "Nombre del congreso", d: "Resumen extendido", doi: "10.0000/ejemplo.002" },
+    { t: "Artículo", y: 2025, a: ["Moreno, J. S.", "Torres, A. M."], title: "Influencia de ENSO en la productividad de bosques andinos medida con NDVI y EVI", v: "Nombre de la revista", d: "vol. 00(0), 1–18", doi: "10.0000/ejemplo.003" },
+    { t: "Capítulo", y: 2025, a: ["Restrepo, C.", "Torres, A. M.", "Gil, A. F."], title: "Introducción a los datos abiertos para estudios de clima y ecosistemas en Colombia", v: "Título del libro", d: "cap. 0, pp. 1–30", doi: "10.0000/ejemplo.004" },
+    { t: "Artículo", y: 2024, a: ["Ortiz, L. C.", "Torres, A. M."], title: "Distribución potencial de especies de bosque andino bajo escenarios de calentamiento", v: "Nombre de la revista", d: "vol. 00(0), 1–14", doi: "10.0000/ejemplo.005" },
+    { t: "Ponencia", y: 2023, a: ["Torres, A. M.", "Gil, A. F."], title: "Tendencias de temperatura en estaciones meteorológicas de alta montaña", v: "Nombre del congreso", d: "Resumen extendido", doi: "10.0000/ejemplo.006" },
+    { t: "Trabajo de grado", y: 2023, a: ["Gil, A. F."], title: "Estimación de flujos de carbono en un bosque secundario andino", v: "Programa de pregrado", d: "Trabajo de grado", doi: "10.0000/ejemplo.007" }
+  ];
+
+  /* ====== Utilidades ====== */
+  var esc = function (s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  };
+  var norm = function (s) { return String(s).normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase(); };
+  var $ = function (id) { return document.getElementById(id); };
+  var nf1 = new Intl.NumberFormat("es-CO", { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+  var nf0 = new Intl.NumberFormat("es-CO", { maximumFractionDigits: 0, useGrouping: false });
+  var r10 = function (x) { return Math.round(x / 10) * 10; };
+
+  function copyText(text, btn, label, onFail) {
+    var done = function (ok) {
+      btn.textContent = ok ? "Copiado" : "No se pudo copiar";
+      if (!ok && onFail) onFail();
+      setTimeout(function () { btn.textContent = label; }, 1800);
+    };
+    var fallback = function () {
+      try {
+        var ta = document.createElement("textarea");
+        ta.value = text;
+        ta.setAttribute("readonly", "");
+        ta.style.cssText = "position:fixed;opacity:0;top:0;left:0";
+        document.body.appendChild(ta);
+        ta.select();
+        var ok = document.execCommand("copy");
+        ta.remove();
+        done(ok);
+      } catch (e) { done(false); }
+    };
+    try {
+      navigator.clipboard.writeText(text).then(function () { done(true); }, fallback);
+    } catch (e) { fallback(); }
+  }
+
+  /* ====== Resumen de la portada ====== */
+  $("hero-meta").textContent = PEOPLE.length + " integrantes · " + LINES.length + " líneas de investigación · " + PUBS.length + " publicaciones";
+  $("lines-meta").textContent = LINES.length + " líneas de investigación";
+  $("people-meta").textContent = PEOPLE.length + " integrantes";
+  $("blog-meta").textContent = POSTS.length + " entradas";
+  $("pub-meta").textContent = PUBS.length + " registros";
+
+  /* ====== Perfil altitudinal ====== */
+  var NS = "http://www.w3.org/2000/svg";
+  var svg = $("tr-svg");
+  var mk = function (tag, attrs, parent) {
+    var e = document.createElementNS(NS, tag);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(e);
+    return e;
+  };
+  var Y = function (e) { return 420 - e / 12; };
+  var TOP = 4800, PEAK = 4600, GRAD = 6; /* °C por km */
+  var ZONES = [
+    { n: "Selva basal", lo: 0 },
+    { n: "Bosque subandino", lo: 1000 },
+    { n: "Bosque andino", lo: 2300 },
+    { n: "Páramo", lo: 3300 },
+    { n: "Superpáramo", lo: 4200 }
+  ];
+  var prof = [[70, 0], [112, 380], [158, 900], [214, 1450], [262, 2050], [316, 2700], [362, 3350], [408, 4000], [450, PEAK], [488, 4150], [532, 3450], [572, 2750], [612, 1950], [646, 1000], [670, 0]];
+  var outline = "M" + prof.map(function (p) { return p[0] + "," + Y(p[1]); }).join(" L") + " Z";
+
+  var defs = mk("defs", {}, svg);
+  var cp = mk("clipPath", { id: "mtn-clip" }, defs);
+  mk("path", { d: outline }, cp);
+
+  var gridG = mk("g", {}, svg);
+  [0, 1000, 2000, 3000, 4000].forEach(function (e) {
+    mk("line", { x1: 58, x2: 690, y1: Y(e), y2: Y(e), "class": "grid" }, gridG);
+    var t = mk("text", { x: 50, y: Y(e) + 5, "text-anchor": "end", "class": "tick" }, gridG);
+    t.textContent = String(e);
+  });
+  var unit = mk("text", { x: 50, y: 12, "text-anchor": "end", "class": "tick" }, gridG);
+  unit.textContent = "m s. n. m.";
+
+  var zg = mk("g", { "clip-path": "url(#mtn-clip)" }, svg);
+  var rects = ZONES.map(function (z, i) { return mk("rect", { x: 58, width: 632, "class": "z" + (i + 1) }, zg); });
+  var tg = mk("g", { "clip-path": "url(#mtn-clip)" }, svg);
+  ZONES.slice(1).forEach(function (z) {
+    mk("line", { x1: 58, x2: 690, y1: Y(z.lo), y2: Y(z.lo), "class": "today" }, tg);
+  });
+  mk("path", { d: outline, "class": "ridge" }, svg);
+  var pk = mk("text", { x: 450, y: 28, "text-anchor": "middle", "class": "peak-label" }, svg);
+  pk.textContent = "Cima " + nf0.format(PEAK) + " m";
+
+  var legend = $("tr-legend");
+  legend.innerHTML = ZONES.map(function (z, i) {
+    return '<li><span class="sw" style="background:var(--z' + (i + 1) + ')"></span><span class="nm">' + esc(z.n) + '</span><span class="rng"></span></li>';
+  }).join("");
+  var legItems = Array.prototype.slice.call(legend.children);
+
+  var slider = $("dt"), out = $("dt-out"), read = $("tr-read"), presets = $("tr-presets");
+  var cur = parseFloat(slider.value), raf = 0;
+
+  function render(dt) {
+    var shift = dt / GRAD * 1000;
+    ZONES.forEach(function (z, i) {
+      var lo = i === 0 ? 0 : z.lo + shift;
+      var hi = i === ZONES.length - 1 ? TOP : ZONES[i + 1].lo + shift;
+      var loC = Math.min(lo, TOP), hiC = Math.min(hi, TOP);
+      rects[i].setAttribute("y", Y(hiC));
+      rects[i].setAttribute("height", Math.max(0, Y(loC) - Y(hiC)));
+      var gone = lo >= PEAK;
+      legItems[i].classList.toggle("gone", gone);
+      legItems[i].querySelector(".rng").textContent = gone ? "sin área" : nf0.format(r10(lo)) + "–" + nf0.format(r10(Math.min(hi, PEAK))) + " m";
+    });
+    out.textContent = dt < 0.05 ? "Hoy" : "+" + nf1.format(dt) + " °C";
+    var left = PEAK - (ZONES[4].lo + shift);
+    if (dt < 0.05) {
+      read.textContent = "Hoy: así se distribuyen los pisos en un perfil de ejemplo, de 0 a " + nf0.format(PEAK) + " m. El superpáramo ocupa los últimos " + nf0.format(Math.round(left)) + " m.";
+    } else {
+      read.textContent = "Con +" + nf1.format(dt) + " °C, cada límite sube cerca de " + nf0.format(r10(shift)) + " m. " +
+        (left <= 0 ? "El superpáramo desaparece: no hay terreno más alto." : "El superpáramo se reduce a " + nf0.format(r10(left)) + " m de desnivel.");
+    }
+    Array.prototype.forEach.call(presets.children, function (b) {
+      b.setAttribute("aria-pressed", Math.abs(parseFloat(b.getAttribute("data-v")) - dt) < 0.05 ? "true" : "false");
+    });
+  }
+
+  function setTo(v) {
+    cancelAnimationFrame(raf);
+    var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce) { cur = v; slider.value = v; render(v); return; }
+    var from = cur, t0 = performance.now(), D = 380;
+    var step = function (t) {
+      var p = Math.min(1, (t - t0) / D), e = 1 - Math.pow(1 - p, 3);
+      cur = from + (v - from) * e;
+      slider.value = cur;
+      render(cur);
+      if (p < 1) raf = requestAnimationFrame(step);
+      else { cur = v; slider.value = v; render(v); }
+    };
+    raf = requestAnimationFrame(step);
+  }
+  slider.addEventListener("input", function () {
+    cancelAnimationFrame(raf);
+    cur = parseFloat(slider.value);
+    render(cur);
+  });
+  presets.addEventListener("click", function (e) {
+    var b = e.target.closest("button[data-v]");
+    if (b) setTo(parseFloat(b.getAttribute("data-v")));
+  });
+  render(cur);
+
+  /* ====== Líneas de investigación ====== */
+  $("lines").innerHTML = LINES.map(function (l) {
+    return "<li><h3>" + esc(l.t) + "</h3><p>" + esc(l.d) + "</p></li>";
+  }).join("");
+
+  /* ====== Investigadores ====== */
+  var groups = ["Todos"];
+  PEOPLE.forEach(function (p) { if (groups.indexOf(p.g) < 0) groups.push(p.g); });
+  var pg = "Todos";
+  var pf = $("people-filter");
+  function renderPeople() {
+    pf.innerHTML = groups.map(function (g) {
+      return '<button type="button" class="chip" data-g="' + esc(g) + '" aria-pressed="' + (g === pg) + '">' + esc(g) + "</button>";
+    }).join("");
+    $("people").innerHTML = PEOPLE.map(function (p, i) {
+      if (pg !== "Todos" && p.g !== pg) return "";
+      var w = p.n.split(" ");
+      var ini = (w[0][0] + (w[1] ? w[1][0] : "")).toUpperCase();
+      return '<article class="person"><div class="avatar" style="--c:var(--z' + ((i % 5) + 1) + ')" aria-hidden="true">' + esc(ini) + "</div>" +
+        '<div><h3>' + esc(p.n) + '</h3><p class="role">' + esc(p.r) + '</p><p class="focus">' + esc(p.f) + '</p><p class="since">En el grupo desde ' + p.s + "</p></div></article>";
+    }).join("");
+  }
+  pf.addEventListener("click", function (e) {
+    var b = e.target.closest("button[data-g]");
+    if (!b) return;
+    pg = b.getAttribute("data-g");
+    renderPeople();
+  });
+  renderPeople();
+
+  /* ====== Blog ====== */
+  var fmtDate = function (iso) {
+    return new Date(iso + "T12:00:00").toLocaleDateString("es-CO", { day: "numeric", month: "short", year: "numeric" });
+  };
+  $("posts").innerHTML = POSTS.map(function (p, i) {
+    return '<li class="post"><div class="post-side"><time datetime="' + p.date + '">' + esc(fmtDate(p.date)) + '</time><span class="post-tag">' + esc(p.tag) + "</span></div>" +
+      '<div class="post-main"><h3>' + esc(p.title) + '</h3><p class="post-ex">' + esc(p.ex) + '</p><p class="post-by">' + esc(p.by) + " · " + p.min + " min de lectura</p>" +
+      '<div class="post-body" id="post-body-' + i + '" hidden>' + p.body.map(function (t) { return "<p>" + esc(t) + "</p>"; }).join("") + "</div>" +
+      '<button type="button" class="textbtn" data-i="' + i + '" aria-expanded="false" aria-controls="post-body-' + i + '">Leer entrada</button></div></li>';
+  }).join("");
+  $("posts").addEventListener("click", function (e) {
+    var b = e.target.closest("button[data-i]");
+    if (!b) return;
+    var body = $("post-body-" + b.getAttribute("data-i"));
+    var open = body.hidden;
+    body.hidden = !open;
+    b.setAttribute("aria-expanded", String(open));
+    b.textContent = open ? "Cerrar entrada" : "Leer entrada";
+  });
+
+  /* ====== Publicaciones ====== */
+  var cite = function (p) {
+    var au = p.a.length > 1 ? p.a.slice(0, -1).join(", ") + ", & " + p.a[p.a.length - 1] : p.a[0];
+    return au + " (" + p.y + "). " + p.title + ". " + p.v + (p.d ? ", " + p.d : "") + ". https://doi.org/" + p.doi;
+  };
+  var SORTED = PUBS.slice().sort(function (a, b) { return b.y - a.y; });
+  SORTED.forEach(function (p) { p.c = cite(p); });
+  var types = ["Todas"];
+  SORTED.forEach(function (p) { if (types.indexOf(p.t) < 0) types.push(p.t); });
+  var pt = "Todas", pq = "";
+  var pubsEl = $("pubs"), pubFilter = $("pub-filter");
+
+  function renderPubs() {
+    pubFilter.innerHTML = types.map(function (t) {
+      return '<button type="button" class="chip" data-t="' + esc(t) + '" aria-pressed="' + (t === pt) + '">' + esc(t) + "</button>";
+    }).join("");
+    var q = norm(pq);
+    var list = SORTED.map(function (p, k) { return { p: p, k: k }; }).filter(function (o) {
+      if (pt !== "Todas" && o.p.t !== pt) return false;
+      return !q || norm(o.p.title + " " + o.p.a.join(" ")).indexOf(q) >= 0;
+    });
+    $("pub-count").textContent = list.length + " de " + SORTED.length;
+    if (!list.length) {
+      pubsEl.innerHTML = '<p class="empty">Ninguna publicación coincide. Borra la búsqueda o elige Todas.</p>';
+      return;
+    }
+    var byYear = {}, years = [];
+    list.forEach(function (o) {
+      if (!byYear[o.p.y]) { byYear[o.p.y] = []; years.push(o.p.y); }
+      byYear[o.p.y].push(o);
+    });
+    pubsEl.innerHTML = years.map(function (y) {
+      return '<div class="year-group"><div class="year">' + y + '</div><div class="pub-items">' + byYear[y].map(function (o) {
+        var p = o.p;
+        return "<article><p class=\"pub-type\">" + esc(p.t) + '</p><h3 class="pub-title">' + esc(p.title) + '</h3><p class="pub-authors">' + esc(p.a.join("; ")) + '</p>' +
+          '<p class="pub-venue"><em>' + esc(p.v) + "</em>" + (p.d ? ", " + esc(p.d) : "") + '</p><p class="pub-doi">DOI ' + esc(p.doi) + "</p>" +
+          '<button type="button" class="textbtn" data-k="' + o.k + '">Copiar cita</button><p class="cite-box" hidden>' + esc(p.c) + "</p></article>";
+      }).join("") + "</div></div>";
+    }).join("");
+  }
+  pubFilter.addEventListener("click", function (e) {
+    var b = e.target.closest("button[data-t]");
+    if (!b) return;
+    pt = b.getAttribute("data-t");
+    renderPubs();
+  });
+  $("pub-q").addEventListener("input", function (e) { pq = e.target.value; renderPubs(); });
+  pubsEl.addEventListener("click", function (e) {
+    var b = e.target.closest("button[data-k]");
+    if (!b) return;
+    var box = b.parentElement.querySelector(".cite-box");
+    copyText(SORTED[parseInt(b.getAttribute("data-k"), 10)].c, b, "Copiar cita", function () { box.hidden = false; });
+  });
+  renderPubs();
+
+  /* ====== Correo ====== */
+  $("mail-copy").addEventListener("click", function (e) {
+    copyText($("mail-addr").textContent, e.currentTarget, "Copiar correo");
+  });
+})();
+</script>
+
+</body>
+</html>
