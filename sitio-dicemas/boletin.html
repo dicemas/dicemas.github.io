@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Boletín climático · DICEMAS</title>
+<meta name="description" content="Boletín climático mensual del semillero DICEMAS: clima de Colombia y su efecto en páramos y bosques andinos.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Figtree:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap">
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <p>Semillero de investigación · Pregrado en Ciencias del Sistema Tierra</p>
+    <p class="draft-note">Borrador: el contenido es de ejemplo</p>
+  </div>
+</div>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="DICEMAS, ir al inicio">
+      <span class="logo-sem" id="logo-sem"><svg viewBox="0 0 40 40" aria-hidden="true">
+        <circle cx="20" cy="20" r="20" fill="#0F7A78"/>
+        <path d="M5 27 L13 17 L18 22 L24 12 L35 27 Z" fill="#AED7B2"/>
+        <path d="M5 27 Q12.5 23 20 27 T35 27 L35 31 Q27.5 35 20 31 T5 31 Z" fill="#E0F1F7"/>
+        <circle cx="29" cy="11" r="3.2" fill="#F8E3A8"/>
+      </svg></span>
+      <span class="brand-text" id="brand-text">
+        <span class="brand-name">DICEMAS</span>
+        <span class="brand-sub">Dinámica Clima-Ecosistemas</span>
+      </span>
+    </a>
+    <span class="uni-slot uni-left" id="uni-left" hidden></span>
+    <nav class="nav" aria-label="Secciones">
+      <a href="index.html#nosotros">Nosotros</a>
+      <a href="index.html#investigadores">Investigadores</a>
+      <a href="index.html#blog">Blog</a>
+      <a href="boletin.html" aria-current="page">Boletín</a>
+      <a href="index.html#publicaciones">Publicaciones</a>
+      <a class="nav-cta" href="index.html#unete">Únete</a>
+    </nav>
+    <span class="uni-slot uni-right" id="uni-right" hidden></span>
+  </div>
+</header>
+
+<main id="inicio">
+  <section class="page-hero">
+    <div class="wrap">
+      <p class="kicker">Boletín climático</p>
+      <h1>Boletín climático DICEMAS</h1>
+      <p class="lead">Cada mes resumimos cómo estuvo el clima en Colombia y lo que significa para los páramos y los bosques andinos. Aquí encuentras todos los boletines, con sus figuras, datos y PDF.</p>
+      <div class="page-stats" id="bp-stats"></div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top: clamp(32px, 5vw, 56px)">
+    <div class="wrap">
+      <div class="bp-layout">
+        <article class="bp-article" id="bp-article" aria-live="polite"></article>
+        <aside class="bp-aside">
+          <div class="bp-box">
+            <h2>Todos los boletines</h2>
+            <label class="sr" for="bp-q">Buscar boletín</label>
+            <input class="field" id="bp-q" type="search" placeholder="Buscar por mes o tema" autocomplete="off">
+            <div id="bp-list"></div>
+          </div>
+          <div class="bp-box bp-follow" data-red="linkedin" hidden>
+            <h2>Síguenos en LinkedIn</h2>
+            <p>Publicamos cada boletín también en LinkedIn.</p>
+            <a class="btn btn-ghost" href="#" target="_blank" rel="noopener">Ir a LinkedIn</a>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="section band-aqua" id="sobre">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="kicker">Sobre el boletín</p>
+        <h2>Cómo hacemos el boletín</h2>
+      </div>
+      <div class="bp-about">
+        <div>
+          <h3>Frecuencia</h3>
+          <p>Publicamos un boletín al mes, durante la primera semana del mes siguiente.</p>
+        </div>
+        <div>
+          <h3>Fuentes de datos</h3>
+          <p>Estaciones del IDEAM, precipitación CHIRPS, reanálisis ERA5 e índices de El Niño de la NOAA.</p>
+        </div>
+        <div>
+          <h3>Periodo de referencia</h3>
+          <p>Las anomalías se calculan respecto al promedio 1991–2020.</p>
+        </div>
+        <div>
+          <h3>Uso y cita</h3>
+          <p>Puedes usar y compartir el contenido citando la fuente. Cada boletín incluye su cita sugerida.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-logos" id="foot-logos" hidden></div>
+        <p class="brand-name">DICEMAS</p>
+        <p>Semillero de investigación en Dinámica Clima-Ecosistemas, vinculado al pregrado en Ciencias del Sistema Tierra.</p>
+      </div>
+      <div>
+        <h3>Secciones</h3>
+        <ul>
+          <li><a href="index.html#nosotros">Nosotros</a></li>
+          <li><a href="index.html#investigadores">Investigadores</a></li>
+          <li><a href="index.html#blog">Blog</a></li>
+          <li><a href="boletin.html">Boletín climático</a></li>
+          <li><a href="index.html#publicaciones">Publicaciones</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Contacto</h3>
+        <p data-correo></p>
+        <p data-ciudad></p>
+        <p class="social">
+          <span data-red="linkedin" hidden><a href="#" target="_blank" rel="noopener">LinkedIn</a></span>
+          <span data-red="instagram" hidden><a href="#" target="_blank" rel="noopener">Instagram</a></span>
+        </p>
+      </div>
+    </div>
+    <p class="foot-bottom">© 2026 DICEMAS · Semillero Dinámica Clima-Ecosistemas</p>
+  </div>
+</footer>
+
+<script src="configuracion.js"></script>
+<script src="boletines.js"></script>
+<script src="sitio.js"></script>
+<script>
+(function () {
+  "use strict";
+  var esc = SITIO.esc, copyText = SITIO.copyText;
+  var $ = function (id) { return document.getElementById(id); };
+  var norm = function (s) { return String(s).normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase(); };
+  var COLORS = ["#DCEBF6", "#DDF1E8", "#F6EEDB", "#E6E7F6", "#D3EEE6", "#E3F0F3"];
+  var MOUNT = '<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M4 38l13-18 8 10 6-8 13 16Z" fill="#AED7B2"/><circle cx="35" cy="13" r="5" fill="#F6E3A8"/></svg>';
+  var list = (typeof BOLETINES === "undefined" ? [] : BOLETINES).slice().sort(function (a, b) {
+    return String(b.fecha).localeCompare(String(a.fecha));
+  });
+  var fmtDate = function (iso) {
+    var d = new Date(iso + "T12:00:00");
+    return isNaN(d) ? iso : d.toLocaleDateString("es-CO", { day: "numeric", month: "long", year: "numeric" });
+  };
+  var arr = function (x) { return Array.isArray(x) ? x : []; };
+
+  if (!list.length) {
+    $("bp-article").innerHTML = "<h2>Pronto publicaremos el primer boletín</h2><p>Vuelve en unos días.</p>";
+    return;
+  }
+  $("bp-stats").innerHTML = "<span>" + list.length + (list.length === 1 ? " boletín publicado" : " boletines publicados") + "</span><span>Último: " + esc(list[0].periodo) + "</span>";
+
+  var current = 0, query = "";
+
+  function cite(b) {
+    var url = location.href.split("#")[0] + "#b" + b.numero;
+    var y = String(b.fecha).slice(0, 4);
+    var au = arr(b.autores).length ? arr(b.autores).join(", ") : "DICEMAS";
+    return au + " (" + y + "). " + b.titulo + " [Boletín climático N.º " + b.numero + ", " + b.periodo + "]. " +
+      "DICEMAS, Semillero de investigación Dinámica Clima-Ecosistemas. " + url;
+  }
+
+  function renderArticle() {
+    var b = list[current];
+    var h = "";
+    h += '<p class="bol-meta">' + (current === 0 ? '<span class="tag bol-new">Más reciente</span>' : "") +
+      "<span>Boletín N.º " + esc(b.numero) + " · " + esc(b.periodo) + "</span><span>Publicado el " + esc(fmtDate(b.fecha)) + "</span></p>";
+    h += "<h2>" + esc(b.titulo) + "</h2>";
+    if (b.resumen) h += '<p class="bol-sum">' + esc(b.resumen) + "</p>";
+    var actions = "";
+    if (b.pdf) actions += '<a class="btn btn-primary" href="' + esc(b.pdf) + '" target="_blank" rel="noopener">Descargar PDF</a>';
+    if (b.linkedin) actions += '<a class="btn btn-ghost" href="' + esc(b.linkedin) + '" target="_blank" rel="noopener">Ver en LinkedIn</a>';
+    if (actions) h += '<div class="bol-actions">' + actions + "</div>";
+
+    if (arr(b.puntos).length) {
+      h += '<div class="bp-block"><h3>Puntos clave</h3><ul class="bp-points">' +
+        arr(b.puntos).map(function (p) { return "<li><span>" + esc(p) + "</span></li>"; }).join("") + "</ul></div>";
+    }
+    if (arr(b.indicadores).length) {
+      h += '<div class="bp-block"><h3>Indicadores del periodo</h3><dl class="bol-ind">' +
+        arr(b.indicadores).map(function (x, i) {
+          return '<div style="--c:' + COLORS[i % COLORS.length] + '"><dt>' + esc(x.n) + '</dt><dd><span class="v">' + esc(x.v) + "</span>" +
+            (x.nota ? '<span class="nota">' + esc(x.nota) + "</span>" : "") + "</dd></div>";
+        }).join("") + "</dl></div>";
+    }
+    if (arr(b.figuras).length) {
+      h += '<div class="bp-block"><h3>Figuras</h3><div class="bp-figs">' +
+        arr(b.figuras).map(function (f, i) {
+          var fb = MOUNT + "Figura pendiente: " + esc(f.src);
+          return '<figure><div class="ph has-img"><a href="' + esc(f.src) + '" target="_blank" rel="noopener" aria-label="Abrir figura ' + (i + 1) + ' en tamaño completo">' +
+            '<img src="' + esc(f.src) + '" alt="' + esc(f.pie) + '" loading="lazy" data-fb="' + esc(fb) + '"></a></div>' +
+            "<figcaption><b>Figura " + (i + 1) + ".</b> " + esc(f.pie) + (/[.!?]$/.test(String(f.pie)) ? "" : ".") + (f.fuente ? " Fuente: " + esc(f.fuente) + "." : "") + "</figcaption></figure>";
+        }).join("") + "</div></div>";
+    }
+    if (arr(b.analisis).length) {
+      h += '<div class="bp-block bp-text"><h3>Análisis</h3>' + arr(b.analisis).map(function (p) { return "<p>" + esc(p) + "</p>"; }).join("") + "</div>";
+    }
+    if (arr(b.autores).length) {
+      h += '<div class="bp-block"><h3>Autores</h3><p class="bp-authors">' + esc(arr(b.autores).join(", ")) + "</p></div>";
+    }
+    h += '<div class="bp-block bp-cite"><h3>Cómo citar este boletín</h3><p id="bp-cite-text">' + esc(cite(b)) + "</p>" +
+      '<button type="button" class="pill" id="bp-cite-copy">Copiar cita</button></div>';
+
+    var newer = current > 0 ? list[current - 1] : null, older = current < list.length - 1 ? list[current + 1] : null;
+    h += '<div class="bp-nav">' +
+      (older ? '<button type="button" class="linkbtn" data-go="' + (current + 1) + '">← ' + esc(older.periodo) + "</button>" : "<span></span>") +
+      (newer ? '<button type="button" class="linkbtn" data-go="' + (current - 1) + '">' + esc(newer.periodo) + " →</button>" : "") + "</div>";
+
+    $("bp-article").innerHTML = h;
+    $("bp-cite-copy").addEventListener("click", function (e) {
+      copyText(cite(b), e.currentTarget, "Copiar cita");
+    });
+    document.title = "Boletín N.º " + b.numero + " · " + b.periodo + " · DICEMAS";
+  }
+
+  function renderList() {
+    var q = norm(query), years = {}, order = [];
+    list.forEach(function (b, i) {
+      if (q && norm(b.periodo + " " + b.titulo + " " + b.resumen).indexOf(q) < 0) return;
+      var y = String(b.fecha).slice(0, 4);
+      if (!years[y]) { years[y] = []; order.push(y); }
+      years[y].push(i);
+    });
+    if (!order.length) { $("bp-list").innerHTML = '<p class="bp-authors">Ningún boletín coincide con la búsqueda.</p>'; return; }
+    $("bp-list").innerHTML = order.map(function (y) {
+      return '<p class="bp-year">' + y + '</p><ul class="bp-list">' + years[y].map(function (i) {
+        var b = list[i];
+        return '<li><button type="button" data-go="' + i + '" aria-current="' + (i === current) + '"><span class="per">' + esc(b.periodo) +
+          "</span><small>N.º " + esc(b.numero) + " · " + esc(b.titulo) + "</small></button></li>";
+      }).join("") + "</ul>";
+    }).join("");
+  }
+
+  function go(i, scroll) {
+    current = Math.max(0, Math.min(list.length - 1, i));
+    renderArticle();
+    renderList();
+    try { history.replaceState(null, "", "#b" + list[current].numero); } catch (e) {}
+    if (scroll) {
+      var top = $("bp-article").getBoundingClientRect().top + window.pageYOffset - 90;
+      if (top < window.pageYOffset) window.scrollTo({ top: top, behavior: "smooth" });
+    }
+  }
+
+  document.addEventListener("click", function (e) {
+    var b = e.target.closest("[data-go]");
+    if (b) go(parseInt(b.getAttribute("data-go"), 10), true);
+  });
+  $("bp-q").addEventListener("input", function (e) { query = e.target.value; renderList(); });
+
+  var m = /^#b(\d+)$/.exec(location.hash);
+  var start = 0;
+  if (m) {
+    list.forEach(function (b, i) { if (String(b.numero) === m[1]) start = i; });
+  }
+  go(start, false);
+})();
+</script>
+</body>
+</html>
