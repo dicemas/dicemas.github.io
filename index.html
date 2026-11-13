@@ -96,8 +96,8 @@
     <div class="wrap">
       <div class="sec-head">
         <p class="kicker">Simulador</p>
-        <h2>Agua y carbono en una cuenca andina</h2>
-        <p class="intro">Cambia la temperatura, la lluvia y la cobertura de páramo y bosque. Mira cómo se mueven el agua y los gases de efecto invernadero, y cómo cambia el balance de la cuenca.</p>
+        <h2>Agua y carbono, de la montaña al océano</h2>
+        <p class="intro">Cambia la temperatura, la lluvia y la cobertura de páramo y bosque. Mira cómo se mueven el agua y los gases de efecto invernadero entre la montaña, la atmósfera y el océano, y cómo cambia el balance de la cuenca.</p>
       </div>
       <div class="sim" id="sim">
         <figure class="sim-figure">
@@ -105,12 +105,13 @@
             <button type="button" class="pill" data-m="agua" aria-pressed="true">Ciclo del agua</button>
             <button type="button" class="pill" data-m="carbono" aria-pressed="false">Carbono y GEI</button>
           </div>
-          <div class="sim-scroll"><svg id="sim-svg" viewBox="0 0 720 460" role="img" aria-label="Diagrama de una cuenca andina con los flujos del ciclo del agua. El grosor de cada flecha es proporcional al flujo."></svg></div>
+          <div class="sim-scroll"><svg id="sim-svg" viewBox="0 0 960 460" role="img" aria-label="Diagrama de una cuenca andina conectada con el océano, con los flujos del ciclo del agua. El grosor de cada flecha es proporcional al flujo."></svg></div>
           <ul class="sim-legend" aria-label="Leyenda del paisaje">
             <li><i style="background:#B9C99A"></i>Páramo con frailejones</li>
             <li><i style="background:#5FAE7E"></i>Bosque andino</li>
             <li><i style="background:#E3D88E"></i>Potrero</li>
             <li><i style="background:#8FC2D6"></i>Turbera y quebrada</li>
+            <li><i style="background:#3F8DB8"></i>Océano</li>
           </ul>
           <p class="sim-note" id="sim-note">El grosor de cada flecha es proporcional al flujo de agua.</p>
         </figure>
@@ -153,7 +154,7 @@
             <p class="sim-read" id="sim-read" aria-live="polite"></p>
           </div>
         </div>
-        <p class="sim-cap">Modelo ilustrativo de una cuenca andina de páramo y bosque, con valores de referencia para enseñar, no mediciones. Agua: balance anual con la ecuación de Budyko (Fu) y aporte de niebla según cobertura y temperatura. Carbono: fotosíntesis limitada por agua y temperatura, respiración del suelo con Q10 = 2,2 y metano según humedad y temperatura. CO₂ equivalente con los potenciales de calentamiento a 100 años del IPCC AR6 (CH₄ = 27, N₂O = 273). Escenarios El Niño y La Niña aproximados: +1 °C y −25 % de lluvia; −0,3 °C y +25 % de lluvia.</p>
+        <p class="sim-cap">Modelo ilustrativo de una cuenca andina de páramo y bosque, con valores de referencia para enseñar, no mediciones. Agua: balance anual con la ecuación de Budyko (Fu) y aporte de niebla según cobertura y temperatura. Carbono: fotosíntesis limitada por agua y temperatura, respiración del suelo con Q10 = 2,2 y metano según humedad y temperatura. CO₂ equivalente con los potenciales de calentamiento a 100 años del IPCC AR6 (CH₄ = 27, N₂O = 273). Océano: la humedad que llega desde el mar disminuye cuando hay menos vegetación que la recicle; la absorción de CO₂ parte del promedio mundial, cercano a 8 g C por m² de océano al año, y baja 4 % por cada °C de calentamiento porque el agua cálida disuelve menos CO₂. Los valores del océano se miden por m² de océano y no se suman al balance de la cuenca. Escenarios El Niño y La Niña aproximados: +1 °C y −25 % de lluvia; −0,3 °C y +25 % de lluvia.</p>
       </div>
     </div>
   </section>

@@ -8,6 +8,9 @@
    temperatura; respiración del suelo con Q10 = 2,2.
    Gases (g CO₂-eq m⁻² año⁻¹): potenciales de calentamiento a
    100 años del IPCC AR6 (CH₄ = 27, N₂O = 273).
+   Océano: origen de la humedad y destino del río. Absorción de
+   CO₂ cercana al promedio mundial (~8 g C por m² de océano al
+   año) y menor con el calentamiento (−4 % por °C).
    ========================================================== */
 (function () {
   "use strict";
@@ -29,7 +32,7 @@
   var signed = function (v) { return (v > 0 ? "+" : "") + num(v); };
 
   /* ---------- Modelo ---------- */
-  var B = { P: 1400, N: 150, PET: 800, GPP: 1600, CUE: 0.5, Rh: 650, Q10: 2.2, CH4: 3, N2O: 0.05, DOCk: 0.015 };
+  var B = { P: 1400, N: 150, PET: 800, GPP: 1600, CUE: 0.5, Rh: 650, Q10: 2.2, CH4: 3, N2O: 0.05, DOCk: 0.015, OU: 8 };
   var GWP = { CH4: 27, N2O: 273 };
   var C2CO2 = 44 / 12;
 
@@ -65,7 +68,11 @@
     var NECB = NEP - DOC - CH4C;
     var CO2 = -NEP * C2CO2;
     var CH4e = CH4 * GWP.CH4, N2Oe = N2O * GWP.N2O;
+    var rec = 0.1 + 0.2 * cov;                            /* humedad reciclada por la vegetación */
+    var Mo = h.W * (1 - rec), Rec = h.W * rec;
+    var OU = B.OU * Math.max(0, 1 - 0.04 * s.dT);          /* el agua cálida disuelve menos CO₂ */
     return {
+      Mo: Mo, Rec: Rec, Dis: Q, OU: OU, ODOC: DOC,
       P: h.P, N: h.N, In: h.W, T: T, E: E, ET: h.ET, Qs: Qs, Qb: Qb, Q: Q, Out: h.ET + Q,
       GPP: GPP, Ra: Ra, Rh: Rh, NEP: NEP, DOC: DOC, CH4: CH4, CH4C: CH4C, N2O: N2O, NECB: NECB,
       CO2: CO2, CH4e: CH4e, N2Oe: N2Oe, GHG: CO2 + CH4e + N2Oe
@@ -73,7 +80,7 @@
   }
 
   /* ---------- Paisaje ---------- */
-  var GROUND = [[0, 175], [90, 168], [170, 182], [260, 215], [360, 250], [460, 282], [560, 308], [620, 322], [720, 326]];
+  var GROUND = [[0, 175], [90, 168], [170, 182], [260, 215], [360, 250], [460, 282], [560, 308], [620, 322], [720, 326], [800, 334], [836, 342]];
   function gy(x) {
     for (var i = 1; i < GROUND.length; i++) {
       if (x <= GROUND[i][0]) {
@@ -94,7 +101,10 @@
   var sky = mk("linearGradient", { id: "sim-sky", x1: 0, y1: 0, x2: 0, y2: 1 }, defs);
   mk("stop", { offset: "0", "stop-color": "#DCEFF7" }, sky);
   mk("stop", { offset: "1", "stop-color": "#F4FAFB" }, sky);
-  mk("rect", { x: 0, y: 0, width: 720, height: 460, fill: "url(#sim-sky)" }, svg);
+  mk("rect", { x: 0, y: 0, width: 960, height: 460, fill: "url(#sim-sky)" }, svg);
+  var sea = mk("linearGradient", { id: "sim-sea", x1: 0, y1: 0, x2: 0, y2: 1 }, defs);
+  mk("stop", { offset: "0", "stop-color": "#6FB3D2" }, sea);
+  mk("stop", { offset: "1", "stop-color": "#2F7DA6" }, sea);
 
   /* nubes */
   var cloud = function (cx, cy, s, op) {
@@ -105,20 +115,24 @@
     return g;
   };
   cloud(205, 46, 1.1, 0.95);
-  cloud(600, 40, 0.8, 0.8);
+  cloud(660, 40, 0.8, 0.8);
   mk("rect", { x: -10, y: 118, width: 170, height: 34, rx: 17, fill: "#FFFFFF", opacity: 0.75 }, svg);
   mk("rect", { x: 20, y: 132, width: 120, height: 22, rx: 11, fill: "#FFFFFF", opacity: 0.6 }, svg);
 
   /* terreno: roca, suelo y superficie */
-  mk("path", { d: "M" + line + " L720,460 L0,460 Z", fill: "#E4DCCF" }, svg);
+  mk("path", { d: "M" + line + " L836,460 L0,460 Z", fill: "#E4DCCF" }, svg);
   var soilBottom = GROUND.slice().reverse().map(function (p) { return p[0] + "," + (p[1] + 52); }).join(" L");
   mk("path", { d: "M" + line + " L" + soilBottom + " Z", fill: "#CDB79E" }, svg);
   mk("path", { d: "M" + line, fill: "none", stroke: "#8DBE8F", "stroke-width": 5, "stroke-linejoin": "round" }, svg);
-  var t1 = mk("text", { x: 704, y: 420, "text-anchor": "end", "class": "sim-zone" }, svg); t1.textContent = "Roca y agua subterránea";
-  var t2 = mk("text", { x: 704, y: 368, "text-anchor": "end", "class": "sim-zone" }, svg); t2.textContent = "Suelo";
+  var t1 = mk("text", { x: 760, y: 448, "text-anchor": "end", "class": "sim-zone" }, svg); t1.textContent = "Roca y agua subterránea";
+  /* océano */
+  mk("path", { d: "M806 340 Q 830 338 860 341 L960 341 L960 460 L770 460 Q 790 400 806 340 Z", fill: "url(#sim-sea)" }, svg);
+  mk("path", { d: "M800 338 Q 818 334 836 342 L 812 342 Z", fill: "#EADFB8" }, svg);
+  mk("path", { d: "M846 350 q 10 -5 20 0 t 20 0 M896 362 q 10 -5 20 0 t 20 0 M850 380 q 10 -5 20 0 t 20 0", fill: "none", stroke: "#BFE0EE", "stroke-width": 2, "stroke-linecap": "round", opacity: 0.8 }, svg);
+  var to = mk("text", { x: 948, y: 440, "text-anchor": "end", "class": "sim-zone sim-sea" }, svg); to.textContent = "Océano";
 
   /* quebrada y turbera */
-  mk("path", { d: "M596 321 Q 660 342 720 330 L720 342 Q 660 352 596 327 Z", fill: "#7DB6D3" }, svg);
+  mk("path", { d: "M596 321 Q 660 342 720 330 Q 770 326 812 340 L812 346 Q 770 336 720 342 Q 660 352 596 327 Z", fill: "#7DB6D3" }, svg);
   var tq = mk("text", { x: 704, y: 316, "text-anchor": "end", "class": "sim-zone" }, svg); tq.textContent = "Quebrada";
   mk("ellipse", { cx: 112, cy: gy(112) + 2, rx: 34, ry: 5, fill: "#8FC2D6" }, svg);
   var tt = mk("text", { x: 112, y: gy(112) + 20, "text-anchor": "middle", "class": "sim-zone" }, svg); tt.textContent = "Turbera";
@@ -157,8 +171,10 @@
       { k: "N", name: "Niebla", d: "M8 150 Q 50 158 84 166", color: "#6FA8C9", lx: 10, ly: 108, a: "start" },
       { k: "T", name: "Transpiración", d: "M412 " + (gy(412) - 48) + " L412 92", color: "#8EC3DD", lx: 424, ly: 110, a: "start" },
       { k: "E", name: "Evaporación", d: "M318 " + (gy(318) - 6) + " L318 128", color: "#A8CFE3", lx: 306, ly: 150, a: "end" },
-      { k: "Qs", name: "Escorrentía superficial", d: "M290 216 Q 460 262 596 316", color: "#3C8DBC", lx: 550, ly: 266, a: "start" },
-      { k: "Qb", name: "Flujo base", d: "M160 196 C 210 262, 430 316, 600 334", color: "#2D6E9E", lx: 330, ly: 302, a: "start", dark: true }
+      { k: "Qs", name: "Escorrentía superficial", d: "M290 216 Q 460 262 596 316", color: "#3C8DBC", lx: 550, ly: 278, a: "start" },
+      { k: "Qb", name: "Flujo base", d: "M160 196 C 210 262, 430 316, 600 334", color: "#2D6E9E", lx: 330, ly: 302, a: "start", dark: true },
+      { k: "Mo", name: "Humedad desde el océano", d: "M904 334 C 904 150, 560 30, 252 50", color: "#5A9FC8", lx: 850, ly: 228, a: "end" },
+      { k: "Dis", name: "Descarga al océano", d: "M636 342 Q 730 350 842 350", color: "#2D6E9E", lx: 640, ly: 386, a: "start", dark: true }
     ],
     carbono: [
       { k: "GPP", name: "Fotosíntesis (GPP)", d: "M480 82 L480 " + (gy(480) - 52), color: "#3F9C6E", lx: 492, ly: 104, a: "start" },
@@ -166,7 +182,9 @@
       { k: "Rh", name: "Respiración del suelo", d: "M342 " + (gy(342) + 18) + " L342 150", color: "#A0683A", lx: 326, ly: 160, a: "end" },
       { k: "CH4", name: "Metano (CH₄)", d: "M112 " + (gy(112) - 4) + " L112 66", color: "#8A6AB0", lx: 124, ly: 82, a: "start" },
       { k: "N2O", name: "Óxido nitroso (N₂O)", d: "M574 " + (gy(574) - 4) + " L574 176", color: "#C05C7A", lx: 586, ly: 196, a: "start" },
-      { k: "DOC", name: "Carbono disuelto al río", d: "M180 206 C 250 280, 450 330, 600 336", color: "#5E8A47", lx: 300, ly: 314, a: "start", dark: true }
+      { k: "DOC", name: "Carbono disuelto al río", d: "M180 206 C 250 280, 450 330, 600 336", color: "#5E8A47", lx: 300, ly: 314, a: "start", dark: true },
+      { k: "OU", name: "CO₂ absorbido por el océano", d: "M904 150 L904 336", color: "#2F8FA0", lx: 948, ly: 118, a: "end" },
+      { k: "ODOC", name: "Carbono del río al océano", d: "M636 344 Q 730 352 842 352", color: "#5E8A47", lx: 640, ly: 386, a: "start", dark: true }
     ]
   };
   var built = {};
@@ -233,7 +251,7 @@
       } else {
         var eq = a.k === "CH4" ? m.CH4e : a.k === "N2O" ? m.N2Oe : v * C2CO2;
         w = clamp(2.5 + Math.sqrt(Math.max(0, eq)) / Math.sqrt(7000) * 15, 2.5, 20);
-        label = a.k === "CH4" ? num(v) + " g CH₄" : a.k === "N2O" ? num(v) + " g N₂O" : num(v) + " g C";
+        label = a.k === "CH4" ? num(v) + " g CH₄" : a.k === "N2O" ? num(v) + " g N₂O" : a.k === "OU" ? num(v) + " g C por m² de océano" : num(v) + " g C";
       }
       var b = built[a.k];
       b.p.setAttribute("stroke-width", w);
@@ -259,11 +277,16 @@
         { n: "Escorrentía superficial", f: function (x) { return x.Qs; } },
         { n: "Flujo base", f: function (x) { return x.Qb; } },
         { n: "Total salidas", f: function (x) { return x.Out; }, total: true },
-        { n: "Entradas − salidas", f: function (x) { return Math.abs(x.In - x.Out) < 0.5 ? 0 : x.In - x.Out; }, total: true }
+        { n: "Entradas − salidas", f: function (x) { return Math.abs(x.In - x.Out) < 0.5 ? 0 : x.In - x.Out; }, total: true },
+        { sep: "Conexión con el océano" },
+        { n: "Humedad que llega desde el océano", f: function (x) { return x.Mo; } },
+        { n: "Humedad reciclada por la vegetación", f: function (x) { return x.Rec; } },
+        { n: "Descarga del río al océano", f: function (x) { return x.Dis; } }
       ], m);
       var y = m.Q / m.In * 100, reg = m.Qb / m.Q * 100;
       $("sim-read").textContent = "De cada 100 mm que entran a la cuenca, " + nf0.format(y) + " salen por la quebrada y " + nf0.format(100 - y) +
-        " vuelven a la atmósfera. El " + nf0.format(reg) + " % del caudal es flujo base: el agua que el suelo regula y entrega en época seca.";
+        " vuelven a la atmósfera. El " + nf0.format(reg) + " % del caudal es flujo base: el agua que el suelo regula y entrega en época seca. El " +
+        nf0.format(m.Mo / m.In * 100) + " % de la humedad viene del océano y el resto la reciclan las plantas.";
       $("sim-pill").hidden = true;
     } else {
       $("sim-unit").textContent = "g C por m² al año (gases en g CO₂-eq)";
@@ -280,7 +303,10 @@
         { n: "CO₂ neto", f: function (x) { return x.CO2; }, sign: true },
         { n: "CH₄ (× 27)", f: function (x) { return x.CH4e; }, sign: true },
         { n: "N₂O (× 273)", f: function (x) { return x.N2Oe; }, sign: true },
-        { n: "Balance neto de GEI", f: function (x) { return x.GHG; }, sign: true, total: true }
+        { n: "Balance neto de GEI", f: function (x) { return x.GHG; }, sign: true, total: true },
+        { sep: "Océano (no se suma a la cuenca)" },
+        { n: "Carbono del río al océano", f: function (x) { return x.ODOC; } },
+        { n: "CO₂ absorbido por el océano (g C por m² de océano)", f: function (x) { return x.OU; } }
       ], m);
       var sink = m.GHG < 0;
       var pill = $("sim-pill");
@@ -290,6 +316,7 @@
       $("sim-read").textContent = sink
         ? "La cuenca captura más gases de los que emite: un balance de " + num(m.GHG) + " g CO₂-eq por m² al año, equivalente a " + nf1.format(Math.abs(m.GHG) / 100) + " t CO₂-eq por hectárea."
         : "La cuenca emite más gases de los que captura: un balance de +" + num(m.GHG) + " g CO₂-eq por m² al año, equivalente a " + nf1.format(m.GHG / 100) + " t CO₂-eq por hectárea.";
+      $("sim-read").textContent += " Cada m² de océano absorbe " + num(m.OU) + " g C al año" + (state.dT > 0.05 ? ", menos que hoy porque el agua cálida disuelve menos CO₂." : ".");
     }
     $("sim-tbody").innerHTML = tbl;
 
@@ -325,8 +352,8 @@
     state.mode = b.getAttribute("data-m");
     build(state.mode);
     svg.setAttribute("aria-label", state.mode === "agua"
-      ? "Diagrama de una cuenca andina con los flujos del ciclo del agua. El grosor de cada flecha es proporcional al flujo."
-      : "Diagrama de una cuenca andina con los flujos de carbono y gases de efecto invernadero. El grosor de cada flecha crece con la raíz del flujo en CO₂ equivalente.");
+      ? "Diagrama de una cuenca andina conectada con el océano, con los flujos del ciclo del agua. El grosor de cada flecha es proporcional al flujo."
+      : "Diagrama de una cuenca andina conectada con el océano, con los flujos de carbono y gases de efecto invernadero. El grosor de cada flecha crece con la raíz del flujo en CO₂ equivalente.");
     $("sim-note").textContent = state.mode === "agua"
       ? "El grosor de cada flecha es proporcional al flujo de agua."
       : "El grosor de cada flecha crece con la raíz cuadrada del flujo en CO₂ equivalente, para que los gases pequeños se vean.";

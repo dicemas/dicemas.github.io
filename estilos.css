@@ -234,9 +234,10 @@ section[id] { scroll-margin-top: 80px; }
 .sim-modes .pill[aria-pressed="true"] { background: var(--primary); color: #FFFFFF; }
 .sim-figure { margin: 0; }
 .sim-scroll { overflow-x: auto; border-radius: 16px; }
-@media (max-width: 640px) { #sim-svg { min-width: 600px; } .sim-scroll::after { content: "Desliza para ver todo el diagrama →"; display: block; font-size: 0.8rem; color: var(--muted); padding-top: 6px; position: sticky; left: 0; } }
+@media (max-width: 760px) { #sim-svg { min-width: 760px; } .sim-scroll::after { content: "Desliza para ver todo el diagrama →"; display: block; font-size: 0.8rem; color: var(--muted); padding-top: 6px; position: sticky; left: 0; } }
 #sim-svg { width: 100%; height: auto; display: block; max-width: 100%; border-radius: 16px; }
 #sim-svg .sim-zone { font: 600 12px var(--font-body); fill: #5D6B63; letter-spacing: 0.02em; }
+#sim-svg .sim-zone.sim-sea { fill: #EAF6FB; font-size: 14px; }
 #sim-svg .sim-label { paint-order: stroke; stroke: #F4FAFB; stroke-width: 4px; stroke-linejoin: round; }
 #sim-svg .sim-label.on-soil { stroke: #EDE2D3; }
 #sim-svg .sim-lname { font: 600 13px var(--font-body); fill: var(--ink); }
