@@ -229,6 +229,9 @@ section[id] { scroll-margin-top: 80px; }
 /* Simulador de ciclos */
 .sim { background: #FFFFFF; border-radius: 24px; box-shadow: var(--shadow); padding: clamp(18px, 3.5vw, 36px); display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(22px, 3.5vw, 36px); }
 .sim > * { min-width: 0; }
+.sim-toggles { display: flex; flex-wrap: wrap; gap: 8px 12px; margin-bottom: 14px; }
+.sim-toggles .sim-modes { margin-bottom: 0; }
+.sim-ctl-group { display: grid; gap: 14px; align-content: start; }
 .sim-modes { display: inline-flex; background: var(--aqua); border-radius: 999px; padding: 4px; gap: 4px; margin-bottom: 14px; flex-wrap: wrap; }
 .sim-modes .pill { border: 0; background: transparent; }
 .sim-modes .pill[aria-pressed="true"] { background: var(--primary); color: #FFFFFF; }
@@ -249,16 +252,16 @@ section[id] { scroll-margin-top: 80px; }
 @keyframes sim-flow { to { stroke-dashoffset: -28; } }
 @media (prefers-reduced-motion: reduce) { #sim-svg .sim-flow { animation: none; } }
 .sim-note { font-size: 0.85rem; color: var(--muted); margin: 10px 0 0; }
-.sim-ctl { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: 16px clamp(24px, 4vw, 48px); align-content: start; }
+.sim-ctl { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: 16px clamp(24px, 4vw, 48px); align-items: start; }
 .sim-ctl > * { min-width: 0; }
-.sim-balance { grid-column: 2; grid-row: 1 / span 5; }
+.sim-balance { grid-column: 2; grid-row: 1; }
 .sim-legend { display: flex; flex-wrap: wrap; gap: 6px 18px; list-style: none; margin: 10px 0 0; padding: 0; font-size: 0.85rem; color: var(--muted); }
 .sim-legend li { display: flex; align-items: center; gap: 6px; }
 .sim-legend i { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
 .sim-slider { display: grid; gap: 4px; }
 .sim-slider .row { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
 .sim-slider label { font-weight: 600; font-size: 0.95rem; }
-.sim-slider output { font: 700 1.15rem var(--font-head); color: var(--primary-dark); font-variant-numeric: tabular-nums; }
+.sim-slider output { white-space: nowrap; font: 700 1.15rem var(--font-head); color: var(--primary-dark); font-variant-numeric: tabular-nums; }
 .sim-slider input { width: 100%; accent-color: var(--primary); margin: 0; }
 .sim-slider .hint { font-size: 0.8rem; color: var(--muted); }
 .sim-presets-title { font-weight: 600; font-size: 0.95rem; margin: 4px 0 8px; }
